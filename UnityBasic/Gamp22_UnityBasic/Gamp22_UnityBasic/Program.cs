@@ -9,7 +9,9 @@ namespace Gamp22_UnityBasic
             //Console.WriteLine("Hello World!");
             //ValMain();
             //CritcalAttackMain();
-            StageMain();
+            //StageMain();
+            //AttackWhile(); //보고싶지않으면 //를 앞에 넣는다.
+            MonsterListMain();
         }
 
         static void ValMain()
