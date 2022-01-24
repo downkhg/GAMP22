@@ -3,6 +3,7 @@
 public class Dynamic : MonoBehaviour
 {
     public float JumpPower;
+    public float Speed = 1.5f;
     public Rigidbody2D rigidbody;
     public bool isGround;
     public int Score;
@@ -22,10 +23,10 @@ public class Dynamic : MonoBehaviour
     void Update()
     {
         if (Input.GetKey(KeyCode.RightArrow))
-            transform.position += Vector3.right * Time.deltaTime;
+            transform.position += Vector3.right * Speed * Time.deltaTime;
       
         if (Input.GetKey(KeyCode.LeftArrow))
-            transform.position += Vector3.left * Time.deltaTime;
+            transform.position += Vector3.left * Speed * Time.deltaTime;
 
         //if (Input.GetKey(KeyCode.Space))
         //    transform.position += Vector3.up * 3 * Time.deltaTime;
