@@ -64,6 +64,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\DeadLine.cs" />
+    <Compile Include="Assets\Scripts\DeadZone.cs" />
     <Compile Include="Assets\Scripts\Dynamic.cs" />
     <Compile Include="Assets\Scripts\Item.cs" />
     <Compile Include="Assets\Scripts\Opossum.cs" />
