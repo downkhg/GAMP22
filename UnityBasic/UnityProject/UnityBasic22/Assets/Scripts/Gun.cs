@@ -9,9 +9,13 @@ public class Gun : MonoBehaviour
 
     void Shot()
     {
-        Rigidbody2D rigidbody = objBullet.GetComponent<Rigidbody2D>();
+        GameObject copyBullet = Instantiate(objBullet);
+        copyBullet.transform.position = this.transform.position;
+        Rigidbody2D rigidbody = copyBullet.GetComponent<Rigidbody2D>();
         if (rigidbody != null)
+        {
             rigidbody.AddForce(Vector3.right * ShotPower);
+        }
         else
             Debug.LogError(objBullet.gameObject.name + "is not Rigidbody2D");
     }
