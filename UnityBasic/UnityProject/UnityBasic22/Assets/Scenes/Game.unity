@@ -1112,7 +1112,7 @@ GameObject:
   - component: {fileID: 679039487}
   - component: {fileID: 679039490}
   m_Layer: 0
-  m_Name: gem-1
+  m_Name: gem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2151,7 +2151,7 @@ GameObject:
   - component: {fileID: 1437287075}
   - component: {fileID: 1437287074}
   m_Layer: 0
-  m_Name: ResponPointOpossum
+  m_Name: OpossumResponner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2233,7 +2233,7 @@ GameObject:
   - component: {fileID: 1544781682}
   - component: {fileID: 1544781681}
   m_Layer: 0
-  m_Name: ResponPointPlayer
+  m_Name: PlayerResponner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2542,12 +2542,12 @@ PrefabInstance:
     - target: {fileID: 2035722448238638733, guid: 84834995a693beb4e82e5c7d505133cb,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.366
+      value: -5.072
       objectReference: {fileID: 0}
     - target: {fileID: 2035722448238638733, guid: 84834995a693beb4e82e5c7d505133cb,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.216
+      value: 2.189
       objectReference: {fileID: 0}
     - target: {fileID: 2035722448238638733, guid: 84834995a693beb4e82e5c7d505133cb,
         type: 3}
@@ -2593,6 +2593,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: player
+      objectReference: {fileID: 0}
+    - target: {fileID: 2035722448238638735, guid: 84834995a693beb4e82e5c7d505133cb,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 84834995a693beb4e82e5c7d505133cb, type: 3}

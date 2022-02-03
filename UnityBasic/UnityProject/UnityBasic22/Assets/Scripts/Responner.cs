@@ -13,12 +13,13 @@ public class Responner : MonoBehaviour
         GameObject copy = Instantiate(prefab);
         copy.transform.position = this.transform.position;
         copy.name = prefab.name;
+        objPlayer = copy;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-
+        prefabName = objPlayer.name;
     }
 
     // Update is called once per frame
