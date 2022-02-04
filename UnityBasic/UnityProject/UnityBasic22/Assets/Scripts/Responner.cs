@@ -6,6 +6,18 @@ public class Responner : MonoBehaviour
 {
     public GameObject objPlayer;
     public string prefabName;
+    public float Time;
+    public bool isRespon;
+
+    IEnumerator ProcessTimmer()
+    {
+        Debug.Log("ProcessTimmer 1");
+        isRespon = true;
+        yield return new WaitForSeconds(Time);
+        ResponObject(prefabName);
+        isRespon = false;
+        Debug.Log("ProcessTimmer 2");
+    }
 
     public void ResponObject(string name)
     {
@@ -25,9 +37,10 @@ public class Responner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(objPlayer == null)
+        if(objPlayer == null && isRespon == false)
         {
-            ResponObject(prefabName);
+            StartCoroutine(ProcessTimmer());
+            //ResponObject(prefabName);
         }
     }
 }

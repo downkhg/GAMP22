@@ -8,7 +8,7 @@ public class Item : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(gameObject.name+ "-OnTriggerEnter2D:"+collision.gameObject.name);
+        //Debug.Log(gameObject.name+ "-OnTriggerEnter2D:"+collision.gameObject.name);
         GameObject objPlayer = collision.gameObject;
         GameObject objItem = this.gameObject;
 

@@ -48,7 +48,7 @@ public class Dynamic : MonoBehaviour
     {
         isGround = true;
        
-        Debug.Log("OnCollisionEnter2D:"+collision.gameObject.name);
+        //Debug.Log("OnCollisionEnter2D:"+collision.gameObject.name);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
