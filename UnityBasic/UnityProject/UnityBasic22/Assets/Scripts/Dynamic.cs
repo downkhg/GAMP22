@@ -6,6 +6,7 @@ public class Dynamic : MonoBehaviour
     public float Speed = 1.5f;
     public Rigidbody2D rigidbody;
     public bool isGround;
+    public bool isLoader;
     public int Score;
 
     private void OnGUI()
@@ -27,6 +28,15 @@ public class Dynamic : MonoBehaviour
       
         if (Input.GetKey(KeyCode.LeftArrow))
             transform.position += Vector3.left * Speed * Time.deltaTime;
+
+        if (isLoader)
+        {
+            if (Input.GetKey(KeyCode.DownArrow))
+                transform.position += Vector3.down * Speed * Time.deltaTime;
+
+            if (Input.GetKey(KeyCode.UpArrow))
+                transform.position += Vector3.up * Speed * Time.deltaTime;
+        }
 
         //if (Input.GetKey(KeyCode.Space))
         //    transform.position += Vector3.up * 3 * Time.deltaTime;
@@ -58,6 +68,22 @@ public class Dynamic : MonoBehaviour
         {
             Score++;
             Destroy(collision.gameObject);
+        }
+        if (collision.gameObject.name == "Loader")
+        {
+            isLoader = true;
+            rigidbody.gravityScale = 0;
+            rigidbody.velocity = Vector2.zero;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.name == "Loader")
+        {
+            isLoader = false;
+            rigidbody.gravityScale = 1;
+            rigidbody.velocity = Vector2.zero;
         }
     }
 }
