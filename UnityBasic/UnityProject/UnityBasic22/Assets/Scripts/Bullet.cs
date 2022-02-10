@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
 {
     public Vector3 vStartPos;
     public float dist;
+
     // Start is called before the first frame update
     void Start()
     {
