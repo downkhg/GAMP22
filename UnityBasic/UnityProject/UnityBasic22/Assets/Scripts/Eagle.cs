@@ -7,7 +7,11 @@ public class Eagle : MonoBehaviour
     public GameObject objTarget;
     public float Speed = 1;
     public float Site = 0.5f;
+    public bool isMove = false;
+
     public LayerMask colLayer;
+
+    public GameObject objResponPoint;
 
     private void OnDrawGizmos()
     {
@@ -33,7 +37,37 @@ public class Eagle : MonoBehaviour
     //    }
     //}
 
+   
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        //objResponPoint = GameObject.Find("EagleResponner");
+    }
+
     private void FixedUpdate()
+    {
+        FindProcess();
+    }
+    // Update is called once per frame
+    void Update()
+    {
+        MoveProcess();
+        ReturnProcess();
+        PatrolProcess();
+    }
+    void PatrolProcess()
+    {
+
+    }
+    void ReturnProcess()
+    {
+        if (objTarget == null)
+        {
+            objTarget = objResponPoint;
+        }
+    }
+    void FindProcess()
     {
         Vector3 vPos = this.transform.position;
         //레이어를 이용하면 레이어에 해당하는 물체만 충돌체크 가능하다.
@@ -48,16 +82,7 @@ public class Eagle : MonoBehaviour
             objTarget = collider.gameObject;
         }
     }
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
+    void MoveProcess()
     {
         if (objTarget)
         {
@@ -67,8 +92,12 @@ public class Eagle : MonoBehaviour
             Vector3 vDir = vDist.normalized;
             float fDist = vDist.magnitude;
 
-            if(fDist > Time.deltaTime)
+            if (fDist > Time.deltaTime)
+            {
                 transform.position += vDir * Speed * Time.deltaTime;
+                isMove = true;
+            }
+            else isMove = false;
         }
     }
 }

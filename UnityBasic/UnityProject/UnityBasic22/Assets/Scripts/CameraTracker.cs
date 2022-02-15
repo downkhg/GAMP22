@@ -27,5 +27,6 @@ public class CameraTracker : MonoBehaviour
             if (fDist > Time.deltaTime)
                 transform.position += vDir * Speed * Time.deltaTime;
         }
+        //else objTarget = GameObject.Find("player");
     }
 }
