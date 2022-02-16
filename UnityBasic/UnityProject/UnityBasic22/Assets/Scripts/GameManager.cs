@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public Responner responnerEagle;
+    public Responner responnerOpposum;
     public Responner responnerPlayer;
     public CameraTracker cameraTracker;
 
@@ -21,6 +22,7 @@ public class GameManager : MonoBehaviour
         {
             Eagle eagle = responnerEagle.objPlayer.GetComponent<Eagle>();
             eagle.objResponPoint = responnerEagle.gameObject;
+            eagle.objPatrolPoint = responnerOpposum.gameObject;
         }
 
         if(cameraTracker.objTarget == null)

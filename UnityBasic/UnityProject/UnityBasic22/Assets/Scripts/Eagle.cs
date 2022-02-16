@@ -12,6 +12,7 @@ public class Eagle : MonoBehaviour
     public LayerMask colLayer;
 
     public GameObject objResponPoint;
+    public GameObject objPatrolPoint;
 
     private void OnDrawGizmos()
     {
@@ -58,7 +59,17 @@ public class Eagle : MonoBehaviour
     }
     void PatrolProcess()
     {
-
+        if(isMove == false)
+        {
+            if(objTarget.name == objResponPoint.name)
+            {
+                objTarget = objPatrolPoint;
+            }
+            else if(objTarget.name == objPatrolPoint.name)
+            {
+                objTarget = objResponPoint;
+            }
+        }
     }
     void ReturnProcess()
     {

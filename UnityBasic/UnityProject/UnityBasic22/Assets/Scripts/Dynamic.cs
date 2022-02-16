@@ -8,7 +8,9 @@ public class Dynamic : MonoBehaviour
     public bool isGround;
     public bool isLoader;
     public int Score;
-
+    public Gun gun;
+    public Vector3 vDir;
+    
     private void OnGUI()
     {
         GUI.Box(new Rect(0, 0, 100, 20), "Score:" + Score);
@@ -23,11 +25,27 @@ public class Dynamic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            gun.Shot(vDir);
+        }
+
         if (Input.GetKey(KeyCode.RightArrow))
+        {
             transform.position += Vector3.right * Speed * Time.deltaTime;
-      
+            //transform.Rotate(Vector3.zero);
+            transform.localRotation = Quaternion.Euler(Vector3.zero);
+            vDir = Vector3.right;
+        }
+
         if (Input.GetKey(KeyCode.LeftArrow))
+        {
             transform.position += Vector3.left * Speed * Time.deltaTime;
+            //transform.Rotate(Vector3.up * 180);
+            transform.localRotation = Quaternion.Euler(Vector3.up * 180);
+            vDir = Vector3.left;
+        }
+
 
         if (isLoader)
         {

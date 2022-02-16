@@ -233,6 +233,8 @@ MonoBehaviour:
   isGround: 0
   isLoader: 0
   Score: 0
+  gun: {fileID: 4343272615498686411}
+  vDir: {x: 0, y: 0, z: 0}
 --- !u!50 &4343272616992962978
 Rigidbody2D:
   serializedVersion: 4

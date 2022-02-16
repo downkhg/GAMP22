@@ -1665,6 +1665,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   responnerEagle: {fileID: 393364651}
+  responnerOpposum: {fileID: 1437287076}
   responnerPlayer: {fileID: 1544781681}
   cameraTracker: {fileID: 1258061844}
 --- !u!4 &938850372
@@ -2928,6 +2929,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: player
       objectReference: {fileID: 0}
+    - target: {fileID: 4343272616992962988, guid: 84834995a693beb4e82e5c7d505133cb,
+        type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4343272616992962989, guid: 84834995a693beb4e82e5c7d505133cb,
+        type: 3}
+      propertyPath: vDir.x
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4343272616992962991, guid: 84834995a693beb4e82e5c7d505133cb,
         type: 3}
       propertyPath: m_RootOrder
@@ -3052,6 +3063,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: eagle
       objectReference: {fileID: 0}
+    - target: {fileID: 5541526923537770134, guid: b45e2ed1838c03243b34f85f516b88cf,
+        type: 3}
+      propertyPath: objPatrolPoint
+      value: 
+      objectReference: {fileID: 1437287073}
     - target: {fileID: 5541526923537770134, guid: b45e2ed1838c03243b34f85f516b88cf,
         type: 3}
       propertyPath: objResponPoint
