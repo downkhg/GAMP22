@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 7494968722895478073}
   - component: {fileID: 7494968722895478052}
   - component: {fileID: 7494968722895478053}
-  m_Layer: 0
+  - component: {fileID: -3222004656643278717}
+  m_Layer: 9
   m_Name: opossum
   m_TagString: Monster
   m_Icon: {fileID: 0}
@@ -143,3 +144,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.36, y: 0.28}
   m_EdgeRadius: 0
+--- !u!114 &-3222004656643278717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7494968722895478072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8727a3802751e34fb4e32551e46a075, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nAttack: 5
+  nHP: 20
+  idx: 1

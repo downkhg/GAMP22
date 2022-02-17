@@ -20,7 +20,10 @@ public class Opossum : MonoBehaviour
     {
         if(collision.gameObject.tag == "Player")
         {
-            Destroy(collision.gameObject);
+            //Destroy(collision.gameObject);
+            Player me = this.GetComponent<Player>();
+            Player target = collision.gameObject.GetComponent<Player>();
+            me.Attack(target);
         }
     }
 }

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5541526923537770135}
   - component: {fileID: 5541526923537770134}
   - component: {fileID: 5541526923537770121}
+  - component: {fileID: -7809721334184083487}
   m_Layer: 0
   m_Name: eagle
   m_TagString: Monster
@@ -98,10 +99,14 @@ MonoBehaviour:
   objTarget: {fileID: 0}
   Speed: 1
   Site: 0.5
+  isMove: 0
   colLayer:
     serializedVersion: 2
     m_Bits: 256
-  objResponPoint: {fileID: 0}
+  objResponPoint: {fileID: 4824615541568580566, guid: f017e96e313ee6c44895025fe2661787,
+    type: 3}
+  objPatrolPoint: {fileID: 4794896585606079443, guid: 832aa0fb9fcd6dd488d60c3220075e19,
+    type: 3}
 --- !u!58 &5541526923537770121
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -118,3 +123,18 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.205
+--- !u!114 &-7809721334184083487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5541526923537770133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8727a3802751e34fb4e32551e46a075, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nAttack: 20
+  nHP: 50
+  idx: 2
