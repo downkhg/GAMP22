@@ -3229,6 +3229,11 @@ PrefabInstance:
       propertyPath: objResponPoint
       value: 
       objectReference: {fileID: 1437287073}
+    - target: {fileID: 5541526923537770135, guid: b45e2ed1838c03243b34f85f516b88cf,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b45e2ed1838c03243b34f85f516b88cf, type: 3}
 --- !u!1001 &7494968723014158390
@@ -3238,6 +3243,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7494968722895478053, guid: 8526d1a40f8d8e644b5f3312407ccf20,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.3119101
+      objectReference: {fileID: 0}
+    - target: {fileID: 7494968722895478053, guid: 8526d1a40f8d8e644b5f3312407ccf20,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.2525202
+      objectReference: {fileID: 0}
+    - target: {fileID: 7494968722895478053, guid: 8526d1a40f8d8e644b5f3312407ccf20,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: -0.02404496
+      objectReference: {fileID: 0}
+    - target: {fileID: 7494968722895478053, guid: 8526d1a40f8d8e644b5f3312407ccf20,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: -0.013739884
+      objectReference: {fileID: 0}
     - target: {fileID: 7494968722895478055, guid: 8526d1a40f8d8e644b5f3312407ccf20,
         type: 3}
       propertyPath: m_RootOrder
