@@ -9,6 +9,18 @@ public class GameManager : MonoBehaviour
     public Responner responnerPlayer;
     public CameraTracker cameraTracker;
 
+    static GameManager instance;
+
+    public static GameManager GetInstance()
+    {
+        return instance;
+    }
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
     // Start is called before the first frame update
     void Start()
     {

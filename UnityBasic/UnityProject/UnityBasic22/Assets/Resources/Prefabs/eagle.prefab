@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5541526923537770134}
   - component: {fileID: 5541526923537770121}
   - component: {fileID: -7809721334184083487}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: eagle
   m_TagString: Monster
   m_Icon: {fileID: 0}
@@ -107,6 +107,7 @@ MonoBehaviour:
     type: 3}
   objPatrolPoint: {fileID: 4794896585606079443, guid: 832aa0fb9fcd6dd488d60c3220075e19,
     type: 3}
+  m_eAiState: 0
 --- !u!58 &5541526923537770121
 CircleCollider2D:
   m_ObjectHideFlags: 0

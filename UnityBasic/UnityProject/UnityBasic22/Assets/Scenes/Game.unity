@@ -2196,6 +2196,21 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 5541526922689951000}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1384764307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1384764301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0854da7bcada471448110c65ceb8503a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isUse: 0
+  Time: 1
+  spriteRenderer: {fileID: 0}
 --- !u!1 &1411349812
 GameObject:
   m_ObjectHideFlags: 0
@@ -3221,14 +3236,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5541526923537770134, guid: b45e2ed1838c03243b34f85f516b88cf,
         type: 3}
+      propertyPath: m_eAiState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5541526923537770134, guid: b45e2ed1838c03243b34f85f516b88cf,
+        type: 3}
       propertyPath: objPatrolPoint
       value: 
-      objectReference: {fileID: 393364648}
+      objectReference: {fileID: 1437287073}
     - target: {fileID: 5541526923537770134, guid: b45e2ed1838c03243b34f85f516b88cf,
         type: 3}
       propertyPath: objResponPoint
       value: 
-      objectReference: {fileID: 1437287073}
+      objectReference: {fileID: 393364648}
     - target: {fileID: 5541526923537770135, guid: b45e2ed1838c03243b34f85f516b88cf,
         type: 3}
       propertyPath: m_Color.a

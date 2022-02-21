@@ -27,7 +27,7 @@ public class Dynamic : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.X))
         {
-            gun.Shot(vDir);
+            gun.Shot(vDir, GetComponent<Player>());
         }
 
         if (Input.GetKey(KeyCode.RightArrow))

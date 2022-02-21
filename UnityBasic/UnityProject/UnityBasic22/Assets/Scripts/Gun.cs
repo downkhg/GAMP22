@@ -7,11 +7,13 @@ public class Gun : MonoBehaviour
     public GameObject objBullet;
     public float ShotPower;
 
-    public void Shot(Vector3 dir)
+    public void Shot(Vector3 dir, Player master)
     {
         GameObject copyBullet = Instantiate(objBullet);
         copyBullet.transform.position = this.transform.position;
         Rigidbody2D rigidbody = copyBullet.GetComponent<Rigidbody2D>();
+        Bullet bullet = copyBullet.GetComponent<Bullet>();
+        bullet.master = master;
         if (rigidbody != null)
         {
             //로컬좌표에서 방향을 가져오므로, 총알이 바라보는 방향으로 발사된다.

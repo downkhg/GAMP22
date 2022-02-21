@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
 {
     public Vector3 vStartPos;
     public float dist;
+    public Player master;
 
     // Start is called before the first frame update
     void Start()
@@ -30,7 +31,16 @@ public class Bullet : MonoBehaviour
     {
         if (collision.gameObject.tag == "Monster")
         {
-            Destroy(collision.gameObject);
+            SuperMode superMode = collision.GetComponent<SuperMode>();
+            if (superMode != null && superMode.isUse == false)
+            {
+                //Player me = GameObject.Find("player").GetComponent<Player>();
+                //Player me = GameManager.GetInstance().responnerPlayer.objPlayer.GetComponent<Player>();
+                Player me = master;
+                Player target = collision.gameObject.GetComponent<Player>();
+                me.Attack(target);
+                superMode.Active();
+            }
             Destroy(this.gameObject);
         }
     }
