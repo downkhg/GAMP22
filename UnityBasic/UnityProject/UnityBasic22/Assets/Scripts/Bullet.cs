@@ -40,6 +40,8 @@ public class Bullet : MonoBehaviour
                 Player target = collision.gameObject.GetComponent<Player>();
                 me.Attack(target);
                 superMode.Active();
+                if (target.Death())
+                    me.StillExp(target);
             }
             Destroy(this.gameObject);
         }

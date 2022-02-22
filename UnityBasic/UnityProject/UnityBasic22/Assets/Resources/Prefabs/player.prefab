@@ -301,6 +301,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nAttack: 10
   nHP: 100
+  nExp: 0
+  nLv: 1
   idx: 0
 --- !u!114 &1520096320588886610
 MonoBehaviour:

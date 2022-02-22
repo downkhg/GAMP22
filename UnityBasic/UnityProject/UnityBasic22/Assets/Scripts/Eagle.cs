@@ -128,7 +128,7 @@ public class Eagle : MonoBehaviour
 
     void PatrolProcess()
     {
-        if(isMove == false)
+        if(isMove == false && objTarget)
         {
             if(objTarget.name == objResponPoint.name)
             {
