@@ -27,12 +27,16 @@ public class GameManager : MonoBehaviour
         switch (status)
         {
             case E_GUI_STATUS.TITLE:
+                Time.timeScale = 0;
                 break;
             case E_GUI_STATUS.THEEND:
+                Time.timeScale = 0;
                 break;
             case E_GUI_STATUS.GAMEOVER:
+                Time.timeScale = 0;
                 break;
             case E_GUI_STATUS.PLAY:
+                Time.timeScale = 1;
                 break;
         }
         ShowGUIScene(status);
@@ -49,9 +53,29 @@ public class GameManager : MonoBehaviour
             case E_GUI_STATUS.GAMEOVER:
                 break;
             case E_GUI_STATUS.PLAY:
+                ResponEagleProcess();
+                CameraTrackerTargetSettingProcess();
                 break;
         }
     }
+    void ResponEagleProcess()
+    {
+        if (responnerEagle.objPlayer)
+        {
+            Eagle eagle = responnerEagle.objPlayer.GetComponent<Eagle>();
+            eagle.objResponPoint = responnerEagle.gameObject;
+            eagle.objPatrolPoint = responnerOpposum.gameObject;
+        }
+    }
+    void CameraTrackerTargetSettingProcess()
+    {
+
+        if (cameraTracker.objTarget == null)
+        {
+            cameraTracker.objTarget = responnerPlayer.objPlayer;
+        }
+    }
+
     private void Awake()
     {
         instance = this;
@@ -79,16 +103,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(responnerEagle.objPlayer)
-        {
-            Eagle eagle = responnerEagle.objPlayer.GetComponent<Eagle>();
-            eagle.objResponPoint = responnerEagle.gameObject;
-            eagle.objPatrolPoint = responnerOpposum.gameObject;
-        }
-
-        if(cameraTracker.objTarget == null)
-        {
-            cameraTracker.objTarget = responnerPlayer.objPlayer;
-        }
+        UpdateGUIStatus();
     }
+
 }

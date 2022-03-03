@@ -9,6 +9,13 @@ public class Player : MonoBehaviour
     public int nExp;
     public int nLv = 1;
 
+    public int nHPMax;
+
+    private void Start()
+    {
+        nHPMax = nHP;
+    }
+
     private void Update()
     {
         if (Death()) Destroy(this.gameObject);
