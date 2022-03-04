@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
             nLv++;
             nAttack += 10;
             nHP += 10;
+            nHPMax += 10;
             nExp -= 100;
         }
     }
@@ -58,13 +59,13 @@ public class Player : MonoBehaviour
     }
 
     public int idx = 0;
-    private void OnGUI()
-    {
-        int w = 100;
-        int h = 20;
-        GUI.Box(new Rect(w*idx,0,w,h),"####" + this.gameObject.name + "####");
-        GUI.Box(new Rect(w*idx, 20, w, h),"HP:" + nHP);
-        GUI.Box(new Rect(w*idx, 40, w, h),"ATK:" + nAttack);
-        GUI.Box(new Rect(w * idx, 60, w, h), "Lv/Exp:" + nLv + "/" + nExp);
-    }
+    //private void OnGUI()
+    //{
+    //    int w = 100;
+    //    int h = 20;
+    //    GUI.Box(new Rect(w*idx,0,w,h),"####" + this.gameObject.name + "####");
+    //    GUI.Box(new Rect(w*idx, 20, w, h),"HP:" + nHP);
+    //    GUI.Box(new Rect(w*idx, 40, w, h),"ATK:" + nAttack);
+    //    GUI.Box(new Rect(w * idx, 60, w, h), "Lv/Exp:" + nLv + "/" + nExp);
+    //}
 }

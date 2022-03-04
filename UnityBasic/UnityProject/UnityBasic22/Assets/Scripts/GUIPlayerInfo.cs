@@ -12,14 +12,17 @@ public class GUIPlayerInfo : MonoBehaviour
 
     public void Set(GameObject obj)
     {
-        Player player = obj.GetComponent<Player>();
-
-        if (player)
+        if (obj)
         {
-            textName.text = obj.name;
-            textLv.text = string.Format("Lv.{0}", player.nLv);
-            guiHPBar.SetStatus(player.nHP, player.nHPMax);
-            guiExpBar.SetStatus(player.nExp, 100);
+            Player player = obj.GetComponent<Player>();
+
+            if (player)
+            {
+                textName.text = obj.name;
+                textLv.text = string.Format("Lv.{0}", player.nLv);
+                guiHPBar.SetStatus(player.nHP, player.nHPMax);
+                guiExpBar.SetStatus(player.nExp, 100);
+            }
         }
     }
 

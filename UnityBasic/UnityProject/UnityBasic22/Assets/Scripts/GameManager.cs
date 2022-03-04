@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public CameraTracker cameraTracker;
 
     public List<GameObject> listGUIScene;
+    public GUIPlayerInfo guiPlayerInfo;
     public enum E_GUI_STATUS { TITLE, THEEND, GAMEOVER, PLAY }
     public E_GUI_STATUS curGUIStatus;
     void ShowGUIScene(E_GUI_STATUS state)
@@ -55,6 +56,9 @@ public class GameManager : MonoBehaviour
             case E_GUI_STATUS.PLAY:
                 ResponEagleProcess();
                 CameraTrackerTargetSettingProcess();
+                guiPlayerInfo.Set(responnerPlayer.objPlayer);
+                if(responnerPlayer.objPlayer == null)
+                    SetGUIStatus(E_GUI_STATUS.GAMEOVER);
                 break;
         }
     }

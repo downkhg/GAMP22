@@ -30,6 +30,18 @@ public class Dynamic : MonoBehaviour
             gun.Shot(vDir, GetComponent<Player>());
         }
 
+        if(Input.GetKeyDown(KeyCode.Z))
+        {
+            CircleCollider2D circleCollider = GetComponent<CircleCollider2D>();
+            Vector2 vPos = this.transform.position;
+            Vector2 vCenter = vPos + circleCollider.offset;
+            int nLayer = 1 << LayerMask.NameToLayer("Object");
+            Collider2D collider = 
+                Physics2D.OverlapCircle(vCenter, circleCollider.radius, nLayer);
+            if(collider)
+                GameManager.GetInstance().SetGUIStatus(GameManager.E_GUI_STATUS.THEEND);
+        }
+
         if (Input.GetKey(KeyCode.RightArrow))
         {
             transform.position += Vector3.right * Speed * Time.deltaTime;
