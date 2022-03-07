@@ -18,7 +18,10 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (Death()) Destroy(this.gameObject);
+        if (Death())
+        {
+            Destroy(this.gameObject);
+        }
         LvUp();
     }
 

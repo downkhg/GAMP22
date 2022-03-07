@@ -800,6 +800,7 @@ MonoBehaviour:
   prefabName: 
   Time: 1
   isRespon: 0
+  Life: -1
 --- !u!1 &439298098
 GameObject:
   m_ObjectHideFlags: 0
@@ -2751,6 +2752,7 @@ MonoBehaviour:
   responnerOpposum: {fileID: 1437287076}
   responnerPlayer: {fileID: 1544781681}
   cameraTracker: {fileID: 1258061844}
+  nLife: 3
   listGUIScene:
   - {fileID: 1038426854}
   - {fileID: 1580333373}
@@ -4457,6 +4459,7 @@ MonoBehaviour:
   prefabName: 
   Time: 1
   isRespon: 0
+  Life: -1
 --- !u!1 &1522300020
 GameObject:
   m_ObjectHideFlags: 0
@@ -4565,6 +4568,7 @@ MonoBehaviour:
   prefabName: 
   Time: 1
   isRespon: 0
+  Life: 3
 --- !u!212 &1544781682
 SpriteRenderer:
   m_ObjectHideFlags: 0

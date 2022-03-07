@@ -8,6 +8,7 @@ public class Responner : MonoBehaviour
     public string prefabName;
     public float Time;
     public bool isRespon;
+    public int Life = -1;
 
     IEnumerator ProcessTimmer()
     {
@@ -39,7 +40,15 @@ public class Responner : MonoBehaviour
     {
         if(objPlayer == null && isRespon == false)
         {
-            StartCoroutine(ProcessTimmer());
+            if (Life == -1)
+            {
+                StartCoroutine(ProcessTimmer());
+            }
+            else if (Life > 0)
+            {
+                StartCoroutine(ProcessTimmer());
+                Life--;
+            }
             //ResponObject(prefabName);
         }
     }

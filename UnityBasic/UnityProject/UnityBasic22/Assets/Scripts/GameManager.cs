@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
                 Time.timeScale = 0;
                 break;
             case E_GUI_STATUS.PLAY:
+                responnerPlayer.Life = 3;
                 Time.timeScale = 1;
                 break;
         }
@@ -57,7 +58,7 @@ public class GameManager : MonoBehaviour
                 ResponEagleProcess();
                 CameraTrackerTargetSettingProcess();
                 guiPlayerInfo.Set(responnerPlayer.objPlayer);
-                if(responnerPlayer.objPlayer == null)
+                if(responnerPlayer.Life == 0)
                     SetGUIStatus(E_GUI_STATUS.GAMEOVER);
                 break;
         }
