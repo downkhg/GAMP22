@@ -11,6 +11,9 @@ public class GameManager : MonoBehaviour
 
     public List<GameObject> listGUIScene;
     public GUIPlayerInfo guiPlayerInfo;
+
+    public ItemManager ItemManager;
+
     public enum E_GUI_STATUS { TITLE, THEEND, GAMEOVER, PLAY }
     public E_GUI_STATUS curGUIStatus;
     void ShowGUIScene(E_GUI_STATUS state)
@@ -84,6 +87,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        ItemManager = GetComponent<ItemManager>();
         SetGUIStatus(curGUIStatus);
     }
 

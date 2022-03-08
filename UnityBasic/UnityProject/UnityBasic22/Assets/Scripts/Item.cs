@@ -4,20 +4,64 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-    public int Score;
+    public enum E_ITEM_KIND { SUPER, CHERRY, GEM, BULLET }
+    public E_ITEM_KIND itemKind;
 
+    public static bool Use(GameObject obj, ItemInfo itemInfo)
+    {
+        switch (itemInfo.item_eff)
+        {
+            case E_ITEM_KIND.SUPER:
+                {
+                    SuperMode superMode = obj.GetComponent<SuperMode>();
+                    if (superMode)
+                    {
+                        superMode.Active();
+                        return true;
+                    }
+                }
+                break;
+            case E_ITEM_KIND.CHERRY:
+                {
+                    Player player = obj.GetComponent<Player>();
+                    if(player)
+                    {
+                        player.nHP = player.nHPMax;
+                        return true;
+                    }
+                    
+                }
+                break;
+            case E_ITEM_KIND.GEM:
+                {
+                    Dynamic dynamic = obj.GetComponent<Dynamic>();
+
+                    if (dynamic != null)
+                    {
+                        dynamic.Score += 100;
+                        return true;
+                    }
+                  
+                }
+                break;
+            case E_ITEM_KIND.BULLET:
+                {
+                    return true;
+                }
+                break;
+        }
+        return false;
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //Debug.Log(gameObject.name+ "-OnTriggerEnter2D:"+collision.gameObject.name);
-        GameObject objPlayer = collision.gameObject;
-        GameObject objItem = this.gameObject;
+        //if (Use(collision.gameObject)) 
+        //    Destroy(this.gameObject);
 
-        Dynamic dynamic = objPlayer.GetComponent<Dynamic>();
-       
-        if(dynamic != null)
+        if(collision.tag == "Player")
         {
-            dynamic.Score += this.Score;
-            Destroy(objItem);
+            Iventory iventory = collision.GetComponent<Iventory>();
+            iventory.SetIventory(itemKind);
+            Destroy(this.gameObject);
         }
     }
 }
