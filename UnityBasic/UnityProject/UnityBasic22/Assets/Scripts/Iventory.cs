@@ -16,7 +16,6 @@ public class Iventory : MonoBehaviour
         itemInfos.Add(GameManager.GetInstance().ItemManager.GetItemInfo(item));
     }
 
-
     private void OnGUI()
     {
         int w = 100, h = 20;

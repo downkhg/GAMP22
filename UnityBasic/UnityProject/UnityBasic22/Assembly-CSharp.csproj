@@ -70,6 +70,8 @@
     <Compile Include="Assets\Scripts\DeadZone.cs" />
     <Compile Include="Assets\Scripts\Dynamic.cs" />
     <Compile Include="Assets\Scripts\Eagle.cs" />
+    <Compile Include="Assets\Scripts\GUIItemButton.cs" />
+    <Compile Include="Assets\Scripts\GUIManager.cs" />
     <Compile Include="Assets\Scripts\GUIPlayerInfo.cs" />
     <Compile Include="Assets\Scripts\GUIStatusBar.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
@@ -81,6 +83,7 @@
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\Responner.cs" />
     <Compile Include="Assets\Scripts\SuperMode.cs" />
+    <None Include="Assets\Scripts\ClassDiagram1.cd" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.24f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
