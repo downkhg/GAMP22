@@ -16,6 +16,30 @@ public class GameManager : MonoBehaviour
 
     public enum E_GUI_STATUS { TITLE, THEEND, GAMEOVER, PLAY }
     public E_GUI_STATUS curGUIStatus;
+
+    public GameObject objPopupLayer;
+    public GUIItemInventory guiItemInventory;
+
+    public bool ShowPopupLayer()
+    {
+        if(objPopupLayer.activeSelf)
+        {
+            guiItemInventory.RomoveButtons();
+            objPopupLayer.SetActive(false);
+            Time.timeScale = 1;
+        }
+        else
+        {
+            objPopupLayer.SetActive(true);
+            GameObject objPlayer = responnerPlayer.objPlayer;
+            if (objPlayer)
+                guiItemInventory.SetIventory(objPlayer.GetComponent<Iventory>());
+            Time.timeScale = 0;
+        }
+
+        return false;
+    }
+
     void ShowGUIScene(E_GUI_STATUS state)
     {
         for(int i = 0; i< listGUIScene.Count; i++)
@@ -31,6 +55,7 @@ public class GameManager : MonoBehaviour
         switch (status)
         {
             case E_GUI_STATUS.TITLE:
+                
                 Time.timeScale = 0;
                 break;
             case E_GUI_STATUS.THEEND:
@@ -40,6 +65,7 @@ public class GameManager : MonoBehaviour
                 Time.timeScale = 0;
                 break;
             case E_GUI_STATUS.PLAY:
+                EventShowMeTheItem(11);
                 responnerPlayer.Life = 3;
                 Time.timeScale = 1;
                 break;
@@ -52,6 +78,7 @@ public class GameManager : MonoBehaviour
         switch (curGUIStatus)
         {
             case E_GUI_STATUS.TITLE:
+
                 break;
             case E_GUI_STATUS.THEEND:
                 break;
@@ -63,6 +90,10 @@ public class GameManager : MonoBehaviour
                 guiPlayerInfo.Set(responnerPlayer.objPlayer);
                 if(responnerPlayer.Life == 0)
                     SetGUIStatus(E_GUI_STATUS.GAMEOVER);
+                if(Input.GetKeyDown(KeyCode.I))
+                {
+                    ShowPopupLayer();
+                }
                 break;
         }
     }
@@ -101,6 +132,21 @@ public class GameManager : MonoBehaviour
     public void EventChangeScene(int sceneidx)
     {
         SetGUIStatus((E_GUI_STATUS)sceneidx);
+    }
+
+    public void EventShowMeTheItem(int count)
+    {
+        if(responnerPlayer.objPlayer)
+        {
+            Iventory iventory = responnerPlayer.objPlayer.GetComponent<Iventory>();
+            for (int i = 0; i < count; i++)
+            {
+                iventory.SetIventory(Item.E_ITEM_KIND.SUPER);
+                iventory.SetIventory(Item.E_ITEM_KIND.CHERRY);
+                iventory.SetIventory(Item.E_ITEM_KIND.GEM);
+                iventory.SetIventory(Item.E_ITEM_KIND.BULLET);
+            }
+        }
     }
 
     // Start is called before the first frame update

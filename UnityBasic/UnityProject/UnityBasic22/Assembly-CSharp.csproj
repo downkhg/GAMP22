@@ -70,10 +70,11 @@
     <Compile Include="Assets\Scripts\DeadZone.cs" />
     <Compile Include="Assets\Scripts\Dynamic.cs" />
     <Compile Include="Assets\Scripts\Eagle.cs" />
-    <Compile Include="Assets\Scripts\GUIItemButton.cs" />
-    <Compile Include="Assets\Scripts\GUIManager.cs" />
-    <Compile Include="Assets\Scripts\GUIPlayerInfo.cs" />
-    <Compile Include="Assets\Scripts\GUIStatusBar.cs" />
+    <Compile Include="Assets\Scripts\GUI\GUIItemButton.cs" />
+    <Compile Include="Assets\Scripts\GUI\GUIItemInventory.cs" />
+    <Compile Include="Assets\Scripts\GUI\GUIManager.cs" />
+    <Compile Include="Assets\Scripts\GUI\GUIPlayerInfo.cs" />
+    <Compile Include="Assets\Scripts\GUI\GUIStatusBar.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\Gun.cs" />
     <Compile Include="Assets\Scripts\Item.cs" />
