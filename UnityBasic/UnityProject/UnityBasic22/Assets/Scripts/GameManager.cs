@@ -20,6 +20,23 @@ public class GameManager : MonoBehaviour
     public GameObject objPopupLayer;
     public GUIItemInventory guiItemInventory;
 
+    public void UpdatePopupLayer()
+    {
+        if (objPopupLayer.activeSelf)
+        {
+            GameObject objPlayer = responnerPlayer.objPlayer;
+            if (objPlayer)
+            {
+                Iventory iventory = objPlayer.GetComponent<Iventory>();
+                if (iventory.itemInfos.Count != guiItemInventory.listItemButton.Count)
+                {
+                    guiItemInventory.RomoveButtons();
+                    guiItemInventory.SetIventory(iventory);
+                }
+            }
+        }
+    }
+
     public bool ShowPopupLayer()
     {
         if(objPopupLayer.activeSelf)
@@ -159,6 +176,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         UpdateGUIStatus();
+        UpdatePopupLayer();
     }
 
 }

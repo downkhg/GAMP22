@@ -11,6 +11,9 @@ public class Player : MonoBehaviour
 
     public int nHPMax;
 
+    public GUIStatusBar guiHPBar;
+    public GUIStatusBar guiExpBar;
+
     private void Start()
     {
         nHPMax = nHP;
@@ -18,6 +21,9 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        if (guiHPBar) guiHPBar.SetStatus(nHP, nHPMax);
+        if (guiExpBar) guiExpBar.SetStatus(nExp, 100);
+
         if (Death())
         {
             Destroy(this.gameObject);

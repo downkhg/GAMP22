@@ -16,6 +16,16 @@ public class Iventory : MonoBehaviour
         itemInfos.Add(GameManager.GetInstance().ItemManager.GetItemInfo(item));
     }
 
+    public void RemoveItem(Item.E_ITEM_KIND item)
+    {
+        itemInfos.Remove(GameManager.GetInstance().ItemManager.GetItemInfo(item));
+    }
+
+    public void RemoveItem(ItemInfo iteminfo)
+    {
+        itemInfos.Remove(iteminfo);
+    }
+
     private void OnGUI()
     {
         int w = 100, h = 20;

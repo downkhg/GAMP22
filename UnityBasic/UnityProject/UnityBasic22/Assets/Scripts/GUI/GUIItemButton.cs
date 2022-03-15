@@ -32,10 +32,21 @@ public class GUIItemButton : MonoBehaviour
             textName.text = itemInfo.name;
             Button button = GetComponent<Button>();
             GameObject objTarget = GameManager.GetInstance().responnerPlayer.objPlayer;
-            button.onClick.AddListener(() => Item.Use(objTarget, itemInfo));
+            button.onClick.AddListener(() => EventItemButton(objTarget, itemInfo));
         }
         else
             Debug.LogError("GUIItemButton Set("+itemInfo.name+") Faild!!");
+    }
+
+    public void EventItemButton(GameObject obj, ItemInfo itemInfo)
+    {
+        if (Item.Use(obj, itemInfo))
+        {
+            GUIItemInventory guiItemInventory = GameManager.GetInstance().guiItemInventory;
+            Iventory iventory = obj.GetComponent<Iventory>();
+            iventory.RemoveItem(itemInfo);
+        }
+
     }
 
     ////테스트코드
