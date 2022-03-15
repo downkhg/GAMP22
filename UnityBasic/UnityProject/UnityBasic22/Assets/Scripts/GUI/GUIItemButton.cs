@@ -2,16 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class GUIItemButton : MonoBehaviour
+public class GUIItemButton : MonoBehaviour, IPointerExitHandler, IPointerEnterHandler
 {
     public Image imgIcon;
     public Text textName;
+    ItemInfo itemInfo;
 
     public void Set(Item.E_ITEM_KIND eItemKind)
     {
         ItemInfo  itemInfo = GameManager.GetInstance().ItemManager.GetItemInfo(eItemKind);
-        
+        this.itemInfo = itemInfo;
         if (itemInfo != null)
         {
             imgIcon.sprite = Resources.Load<Sprite>("Icon/" + itemInfo.icon);
@@ -19,6 +21,7 @@ public class GUIItemButton : MonoBehaviour
             Button button = GetComponent<Button>();
             GameObject objTarget = GameManager.GetInstance().responnerPlayer.objPlayer;
             button.onClick.AddListener(() => Item.Use(objTarget, itemInfo));
+
         }
         else
             Debug.LogError("GUIItemButton Set("+eItemKind+") Faild!!");
@@ -28,6 +31,7 @@ public class GUIItemButton : MonoBehaviour
     {
         if (itemInfo != null)
         {
+            this.itemInfo = itemInfo;
             imgIcon.sprite = Resources.Load<Sprite>("Icon/" + itemInfo.icon);
             textName.text = itemInfo.name;
             Button button = GetComponent<Button>();
@@ -47,6 +51,17 @@ public class GUIItemButton : MonoBehaviour
             iventory.RemoveItem(itemInfo);
         }
 
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        GameManager.GetInstance().guiItemPopup.gameObject.SetActive(false);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        GameManager.GetInstance().guiItemPopup.gameObject.SetActive(true);
+        GameManager.GetInstance().guiItemPopup.Set(itemInfo);
     }
 
     ////테스트코드

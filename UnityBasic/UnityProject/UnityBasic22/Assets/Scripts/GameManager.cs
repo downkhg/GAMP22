@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject objPopupLayer;
     public GUIItemInventory guiItemInventory;
+    public GUIItemPopup guiItemPopup;
 
     public void UpdatePopupLayer()
     {
