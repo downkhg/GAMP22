@@ -58,9 +58,33 @@ void ASCIITestMain()
 //d: 14960만km
 //t: 초단위
 //심화: t를 분 초로 나타내보기
+//데이터: dist, speed, second -> 정수, 실수 -> ?
+//알고리즘: t = d/s 출력
+//--------- d //- s
 void LightSpeedMain()
 {
+	//나누기를 할때는 실수형이 안전(=오차가 없는 것이 좋다.)하다.
+	float dist = 14960;
+	float speed = 30;
+	float sec = dist/speed;
+	//printf("time:%d\n",sec);
+	//printf("%d/%d=%d\n", dist, speed , sec);
+	printf("%f/%f=%f\n", dist, speed, sec);
+}
 
+void LightSpeedMain2()
+{
+	float dist = 14960;
+	float speed = 30;
+	float time = dist / speed;
+	//printf("time:%d\n",sec);
+	//printf("%d/%d=%d\n", dist, speed , sec);
+	printf("%f/%f=%f\n", dist, speed, time);
+	int min, sec;
+	min = time / 60;
+	//sec = (int)time % 60;
+	sec = time - min * 60;
+	printf("%02d:%02d",min,sec);
 }
 
 void main()//프로그램에서 실행되었을때 os에서 불러주는 함수
@@ -71,5 +95,7 @@ void main()//프로그램에서 실행되었을때 os에서 불러주는 함수
 	//SumMain();//세미콜론: 문장마지막을 나타내는 기호
 	//CircleAreaMain();
 	//ValSizeMain();
-	ASCIITestMain();
+	//ASCIITestMain();
+	//LightSpeedMain();
+	LightSpeedMain2();
 }
