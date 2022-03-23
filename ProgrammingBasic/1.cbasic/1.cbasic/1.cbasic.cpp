@@ -86,6 +86,30 @@ void LightSpeedMain2()
 	sec = time - min * 60;
 	printf("%02d:%02d",min,sec);
 }
+//++ --
+//데이터의 값이 전위연산자와 후위 연산자의 차이점을 확인하는 프로그램
+//데이터: 변수가 2개가(nDataA, nDataB) 필요하다. --,++연산자의 차이도 알수있도록 프로그램을 작성하기
+//알고리즘: nDataA와 nDataB의 초기값알아야 뒤에 연산들의 결과를 알수있다. nDataB = nDataA++, nDataB = ++nData
+void IncDecTestMain()
+{
+	int nDataA = 10; //10
+	int nDataB = nDataA; //10
+	printf("1.DataA/B: %d/%d\n",nDataA,nDataB);
+	nDataB = nDataA++; //11/11 -> 실제결과: 10/11 -> 수업: 질문 -> 공부: 검색 -> 후위연산자는 대입연산자보다 우선순위가 낮으므로 연산전에 값이 전달된다.
+	printf("2.DataA/B: %d/%d\n", nDataA, nDataB);
+	nDataB = ++nDataA; //12/12 -> 전위연산자는 대입연산자보다 우선순위가 높으므로, 증감후 값이 변수에 전달된다.
+	printf("3.DataA/B: %d/%d\n", nDataA, nDataB);
+}
+
+void OpTestMain()
+{
+	int x = 10, y = 10, z = 33;
+	x += 1; //11
+	y *= 2; //20
+	z %= (x + y); //33 % 31 = 2 
+
+	printf("x/y/z:%d,%d,%d\n",x,y,z);
+}
 
 void main()//프로그램에서 실행되었을때 os에서 불러주는 함수
 {
@@ -97,5 +121,7 @@ void main()//프로그램에서 실행되었을때 os에서 불러주는 함수
 	//ValSizeMain();
 	//ASCIITestMain();
 	//LightSpeedMain();
-	LightSpeedMain2();
+	//LightSpeedMain2();
+	//IncDecTestMain();
+	OpTestMain();
 }
