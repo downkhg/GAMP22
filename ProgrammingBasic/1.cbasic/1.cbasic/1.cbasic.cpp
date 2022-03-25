@@ -110,6 +110,40 @@ void OpTestMain()
 
 	printf("x/y/z:%d,%d,%d\n",x,y,z);
 }
+//점수를 입력하면, 학점을 출력하는 프로그램만들기.
+//(A: 90점이상 B: 80점이상 C: 70점 이상 D: 60점이상 60점 미만: F)
+//데이터: 점수 -> 정수, 학점 -> 문자
+//알고리즘: 각점수의 조건에 따라 (A: 90점이상 B: 80점이상 C: 70점 이상 D: 60점이상 60점 미만: F) 학점을 출력
+void GradeTestMain()
+{
+	int nScore;
+	char cGrade;
+	printf("Score: ");
+	scanf("%d",&nScore);
+
+	if (nScore >= 90)
+		cGrade = 'A';
+	else
+	{
+		if (nScore >= 80)
+			cGrade = 'B';
+		else
+		{
+			if (nScore >= 70)
+				cGrade = 'C';
+			else
+			{
+				if (nScore >= 60)
+					cGrade = 'D';
+				else
+				{
+					cGrade = 'F';
+				}
+			}
+		}
+	}
+	printf("Score:%d Grade:%c\n",nScore,cGrade);
+}
 
 void main()//프로그램에서 실행되었을때 os에서 불러주는 함수
 {
