@@ -123,26 +123,126 @@ void GradeTestMain()
 
 	if (nScore >= 90)
 		cGrade = 'A';
+	else if (nScore >= 80)
+		cGrade = 'B';
+	else if (nScore >= 70)
+		cGrade = 'C';
+	else if (nScore >= 60)
+	{
+		cGrade = 'D';
+		printf("Dead");
+	}
 	else
 	{
-		if (nScore >= 80)
-			cGrade = 'B';
+		cGrade = 'F';
+		printf("Fail!!!");
+	}
+	
+	printf("Score:%d Grade:%c\n",nScore,cGrade);
+}
+//사칙연산이 가능한 계산기를 만들어라.
+//1. 값을 (입력:scanf)하면 계산하는 (연산:변수,문자)과 (수:변수,정수?실수!)를 (변경)할수있다.
+//2. 사칙연산은 +,-,*,/ -> 문자, 입력은 2개는 입력받아야 연산이 가능하므로 최소 2개만 입력받는다.
+//데이터: 연산, 변수
+//알고리즘: 두수와 연산자를 입력받는다. 
+//			연산이 만약 +라면 두수를 더한다. 
+//			연산이 만약 -라면 두수를 뺀다. 
+//			연산이 만약 /라면 두수를 나눈다. 
+//			연산이 만약 *라면 두수를 곱한다.   
+void CalcultorMain()
+{
+	float fDataA, fDataB, fResult; //연산할 두수
+	char cOp; //연산자
+	//다음과 같이 입력받더라도 문제를 해결하면된다. //그러나 각각 받는경우 엔터를 통해서 잘못된 입력이 들어갈수도있다.
+	/*printf("DataA:");
+	scanf("%f", &fDataA);
+	printf("DataB:");
+	scanf("%f", &fDataB);
+	printf("Opreator:");
+	scanf("%c", &cOp);*/
+	printf("ex) 1+1\n");
+	scanf("%f%c%f", &fDataA, &cOp, &fDataB);//형식을 지정할때 띄어쓰기나 중간문자도 영향을 준다.
+
+	if (cOp == '+')
+		fResult = fDataA + fDataB;
+	else if (cOp == '-')
+		fResult = fDataA - fDataB;
+	else if (cOp == '/')
+		fResult = fDataA / fDataB;
+	else if (cOp == '*')
+		fResult = fDataA * fDataB;
+	else
+	{
+		printf("%c is not support!!!\n", cOp);
+		return;//리턴을 만나면 함수가 종료된다.
+	}
+
+	printf("%f%c%f=%f",fDataA,cOp,fDataB, fResult);
+}
+
+void CalcultorSwichMain()
+{
+	float fDataA, fDataB, fResult; //연산할 두수
+	char cOp; //연산자
+	//다음과 같이 입력받더라도 문제를 해결하면된다. //그러나 각각 받는경우 엔터를 통해서 잘못된 입력이 들어갈수도있다.
+	/*printf("DataA:");
+	scanf("%f", &fDataA);
+	printf("DataB:");
+	scanf("%f", &fDataB);
+	printf("Opreator:");
+	scanf("%c", &cOp);*/
+	printf("ex) 1+1\n");
+	scanf("%f%c%f", &fDataA, &cOp, &fDataB);//형식을 지정할때 띄어쓰기나 중간문자도 영향을 준다.
+
+	switch (cOp)//어떤값이 어느조건이냐에따라 분기를 나눈다.
+	{
+	case '+': //case~break는 짝을 이루어 사용하는 것이 보통이다.
+		fResult = fDataA + fDataB;
+		//break;//생략되면 아래 문장에서 break를 만날때까지 반복된다.
+	case '-':
+		fResult = fDataA - fDataB;
+		break;
+	case '*':
+		fResult = fDataA * fDataB;
+		break;
+	case '/':
+		fResult = fDataA / fDataB;
+		break;
+	default:
+		printf("%c is not support!!!\n",cOp);
+		return;//리턴을 만나면 함수가 종료된다.
+		break;
+	}
+
+	printf("%f%c%f=%f\n", fDataA, cOp, fDataB, fResult);
+}
+
+void CalcultorWhileMain()
+{
+	float fDataA, fDataB, fResult; //연산할 두수
+	char cOp; //연산자
+
+	while (true)
+	{
+		printf("ex) 1+1\n exit:?x?");
+		scanf("%f%c%f", &fDataA, &cOp, &fDataB);//형식을 지정할때 띄어쓰기나 중간문자도 영향을 준다.
+		if (cOp == 'x') break;
+		if (cOp == '+')
+			fResult = fDataA + fDataB;
+		else if (cOp == '-')
+			fResult = fDataA - fDataB;
+		else if (cOp == '/')
+			fResult = fDataA / fDataB;
+		else if (cOp == '*')
+			fResult = fDataA * fDataB;
 		else
 		{
-			if (nScore >= 70)
-				cGrade = 'C';
-			else
-			{
-				if (nScore >= 60)
-					cGrade = 'D';
-				else
-				{
-					cGrade = 'F';
-				}
-			}
+			printf("%c is not support!!!\n", cOp);
+			return;//리턴을 만나면 함수가 종료된다.
 		}
+
+		printf("%f%c%f=%f\n", fDataA, cOp, fDataB, fResult);
 	}
-	printf("Score:%d Grade:%c\n",nScore,cGrade);
 }
 
 void main()//프로그램에서 실행되었을때 os에서 불러주는 함수
@@ -157,5 +257,7 @@ void main()//프로그램에서 실행되었을때 os에서 불러주는 함수
 	//LightSpeedMain();
 	//LightSpeedMain2();
 	//IncDecTestMain();
-	OpTestMain();
+	//OpTestMain();
+	//CalcultorMain();
+	CalcultorWhileMain();
 }
