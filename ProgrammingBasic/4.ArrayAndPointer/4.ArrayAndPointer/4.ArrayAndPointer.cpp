@@ -74,7 +74,11 @@ void FunctionAndPointerMain()
 	printf("Ptrl: DataA/B[%d/%d]:%d,%d\n", &nDataA, &nDataB, nDataA, nDataB);
 	SwapRef(nDataA, nDataB); //매개변수에 전달된 변수의 값이 변경된다.
 }
-
+//배열: 변수를 메모리에 순서대로 만들어서 인덱스를 이용하여 접근 가능하게 한다.
+//배열의이름은 주소값을 가지고 있으므로, 인덱스가 0인 이유가 주소값에 +0해야 원래 주소값이 나오기때문이다.
+//포인터연산: 포인터의 주소값을 해당포인터가 저장할수있는 데이터타입의 크기만큼 증가한다. 예) char +1, int +4, double +8
+//배열은 포인터를 활용하여 구현되어있다. 그러므로 크기를 할당할때 중간에 변경할수없으므로. 
+//변수를 이용하여 배열의 크기를 만들수없고 상수를 이용해야만 한다.
 void ArrayMain()
 {
 	const int nSize = 3;
@@ -87,24 +91,26 @@ void ArrayMain()
 		printf("[%d/%d]%d,", &arrScore[i], i, arrScore[i]);
 	printf("\n");
 	int* pScore = arrScore;
-	for (int i = 0; i < nSize; i++)
-		printf("[%d/%d]%d,", pScore + i, i, *(pScore + i));
+	for (int i = 0; i < nSize; i++)//0,1,2
+		printf("[%d/%d]%d,", arrScore + i, i, *(arrScore + i));//배열이름+인덱스
 	printf("\n");
 	for (int i = 0; i < nSize; i++)
 	{
-		printf("[%d/%d]%d,", pScore, i, *pScore);
-		pScore++;
+		printf("[%d/%d]%d,", pScore, i, *pScore); //포인터 연산을할때마다 가르키는 주소값이 다르다.
+		pScore++;//포인터연산
 	}
 	printf("\n");
 	int arrCopyScore[nSize];
+	//배열의 인덱스로 복사를 하면 3번 반복해야한다.
 	for (int i = 0; i < nSize; i++)
 		arrCopyScore[i] = arrScore[i];
-	memcpy(arrCopyScore, arrScore, sizeof(arrCopyScore));
+	//메모리 복사를 이용하면 메모리를 일정크기만큼 복사하므로 빠르다.
+	memcpy_s(arrCopyScore, sizeof(arrCopyScore), arrScore, sizeof(arrCopyScore));
 }
 
 void Array2DTestMain()
 {
-
+	
 }
 
 void main()
