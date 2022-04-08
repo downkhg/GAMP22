@@ -1,122 +1,471 @@
-#include <stdio.h>
-#include <string.h>
-//전위연산자:++data,후위연산자:data++ 
-//데이터의 값이 전위연산자와 후위 연산자의 차이점을 확인하는 프로그램
-//데이터: 데이터2개가 필요하다 -> nDataA,nDataB -> 정수
-//알고리즘: nDataB = ++nDataA, nDataB = nDataA++, ?
-void IncDecTestMain()
-{
-	int nDataA = 10, nDataB; //10, ?
-	nDataB = nDataA; //10
-	printf("1.nDataA/B:%d/%d\n", nDataA, nDataB);
-	nDataB = ++nDataA; //11/11 ->  전위연산자: 대입연산자보다 우선순위가 높으므로, 증감하고, 값이 변수에 대입된다.
-	printf("2.nDataA/B:%d/%d\n", nDataA, nDataB);
-	nDataB = nDataA++; //12/12 -> 12/11 -> 후위연산자는 대입연산자보다 우선순위가 낮으므로, 증감전 값이 변수에 대입된다.
-	printf("3.nDataA/B:%d/%d\n", nDataA, nDataB);
-}
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
 
-//포인터, 포인터와 함수, 배열, 2차원배열
-//문제: 정수와 실수의 데이터를 선언하고, 
-//선언된 데이터를 각 실수와 정수의 포인터에 저장하여,       
-//모든 변수들 에서 연산 할 수 있는 모든 결과를 출력하라.
-// 
-//포인터: 주소값을 저장하는 변수.
-void PointerTestMain()
-{
-	int nData = 10;
-	float fData = 3.14f;
-	int* pIntData = &nData;
-	float* pFloatData = &fData;
+struct Status {
+	int nHP;
+	int nMP;
+	int nStr;
+	int nInt;
+	int nDef;
 
-	printf("nData[%d]:%d\n",&nData,nData);
-	printf("pIntData[%d]:%d\n", *pIntData, pIntData);
-
-	printf("fData[%d]:%f\n", &fData, fData);
-	printf("pFloatData[%f]:%d\n", *pFloatData, pFloatData);
-}
-//값에의한호출: 매개변수에 값을 복사해서 넘겼을때
-void SwapVal(int a, int b)
-{
-	printf("SwapVal[%d/%d]:%d,%d\n", &a, &b, a, b);
-	int temp = a;
-	b = a;
-	temp = b;
-}
-
-//참조(포인터)에의한 호출: 매개변수에 주소값을 전달하였기 때문에 
-///(포인터가 가진 주소값이 가진 변수)의 값을 변경한다.
-void SwapPtr(int* pA, int* pB)
-{
-	printf("SwapPtr[%d/%d]:%d,%d\n", &pA, &pB, pA, pB);
-	int temp = *pA;
-	*pB = *pA;
-	temp = *pB;
-}
-//참조자를 이용하여 매개변수로 전달받은 값을 변경.
-//기본적인 원리는 포인터로 이해하더라도 실제 코드를 사용할때는 
-//참조자를 활용하는것이 활용하기 쉽다.
-void SwapRef(int& a, int& b)
-{
-	printf("SwapRef[%d/%d]:%d,%d\n", &a, &b, a, b);
-	int temp = a;
-	b = a;
-	temp = b;
-}
-
-void FunctionAndPointerMain()
-{
-	int nDataA = 10;
-	int nDataB = 20;
-	printf("Val DataA/B[%d/%d]:%d,%d\n",&nDataA,&nDataB,nDataA,nDataB);
-	SwapVal(nDataA, nDataB);//매개변수가 변경되고 전달된 변수의 값이 변경되지는 않는다.
-	printf("SwapVal: DataA/B[%d/%d]:%d,%d\n", &nDataA, &nDataB, nDataA, nDataB);
-	SwapPtr(&nDataA, &nDataB);//매개변수가 가진 주소값을 가진 변수의 값이 변경된다.
-	printf("Ptrl: DataA/B[%d/%d]:%d,%d\n", &nDataA, &nDataB, nDataA, nDataB);
-	SwapRef(nDataA, nDataB); //매개변수에 전달된 변수의 값이 변경된다.
-}
-//배열: 변수를 메모리에 순서대로 만들어서 인덱스를 이용하여 접근 가능하게 한다.
-//배열의이름은 주소값을 가지고 있으므로, 인덱스가 0인 이유가 주소값에 +0해야 원래 주소값이 나오기때문이다.
-//포인터연산: 포인터의 주소값을 해당포인터가 저장할수있는 데이터타입의 크기만큼 증가한다. 예) char +1, int +4, double +8
-//배열은 포인터를 활용하여 구현되어있다. 그러므로 크기를 할당할때 중간에 변경할수없으므로. 
-//변수를 이용하여 배열의 크기를 만들수없고 상수를 이용해야만 한다.
-void ArrayMain()
-{
-	const int nSize = 3;
-	int arrScore[nSize];
-	int arrSize = sizeof(arrScore) / sizeof(int);
-	for (int i = 0; i < nSize; i++)
-		arrScore[i] = 100 - i * 10;
-	printf("arrScore:%d\n",arrScore);
-	for (int i = 0; i < nSize; i++)
-		printf("[%d/%d]%d,", &arrScore[i], i, arrScore[i]);
-	printf("\n");
-	int* pScore = arrScore;
-	for (int i = 0; i < nSize; i++)//0,1,2
-		printf("[%d/%d]%d,", arrScore + i, i, *(arrScore + i));//배열이름+인덱스
-	printf("\n");
-	for (int i = 0; i < nSize; i++)
+	Status(int _hp = 0, int _mp = 0, int _str = 0, int _int = 0, int _def = 0)
 	{
-		printf("[%d/%d]%d,", pScore, i, *pScore); //포인터 연산을할때마다 가르키는 주소값이 다르다.
-		pScore++;//포인터연산
+		nHP = _hp;
+		nMP = _mp;
+		nStr = _str;
+		nInt = _int;
+		nDef = _def;
 	}
-	printf("\n");
-	int arrCopyScore[nSize];
-	//배열의 인덱스로 복사를 하면 3번 반복해야한다.
-	for (int i = 0; i < nSize; i++)
-		arrCopyScore[i] = arrScore[i];
-	//메모리 복사를 이용하면 메모리를 일정크기만큼 복사하므로 빠르다.
-	memcpy_s(arrCopyScore, sizeof(arrCopyScore), arrScore, sizeof(arrCopyScore));
-}
+	void operator+=(const int value)
+	{
+		this->nHP += value;
+		this->nMP += value;
+		this->nStr += value;
+		this->nDef += value;
+		this->nInt += value;
+	}
+	Status operator+(const Status& status)
+	{
+		Status sResult;
+		sResult.nHP = nHP + status.nHP;
+		sResult.nMP = nMP + status.nMP;
+		sResult.nStr = nStr + status.nStr;
+		sResult.nDef = nDef + status.nDef;
+		sResult.nInt = nInt + status.nInt;
+		return sResult;
+	}
+	Status operator-(const Status& status)
+	{
+		Status sResult;
+		sResult.nHP = nHP - status.nHP;
+		sResult.nMP = nMP - status.nMP;
+		sResult.nStr = nStr - status.nStr;
+		sResult.nDef = nDef - status.nDef;
+		sResult.nInt = nInt - status.nInt;
+		return sResult;
+	}
+	void Show()
+	{
+		cout << "HP:" << nHP << endl;
+		cout << "MP:" << nMP << endl;
+		cout << "STR:" << nStr << endl;
+		cout << "INT:" << nInt << endl;
+		cout << "DEF:" << nDef << endl;
+	}
+};
 
-void Array2DTestMain()
-{
-	
-}
+class Item {
+public:
+	enum E_ITEM_KIND { WEAPON, ARMOR, ACC, POTION, THROW };
+	E_ITEM_KIND eItemKind;
+	string strName;
+	string strComment;
+	Status sFuction;
+	int nGold;
+	Item(E_ITEM_KIND kind = THROW, string name = "none", string comment = "none", Status status = Status(), int gold = 0)
+	{
+		Set(kind, name, comment, status, gold);
+	}
+	void Set(E_ITEM_KIND kind, string name, string comment, Status status, int gold)
+	{
+		eItemKind = kind;
+		strName = name;
+		strComment = comment;
+		sFuction = status;
+		nGold = gold;
+	}
+};
 
+class ItemManager {
+	vector<Item> m_listItems;
+public:
+	enum E_ITEM_LIST { WOOD_SOWRD, BONE_SOWRD, WOOD_ARMOR, BONE_AMROR, WOOD_RING, BONE_RING, HP_POTION, MP_POTION, STONE, BOOM };
+	ItemManager()
+	{
+
+	}
+
+
+	void Init()
+	{
+		m_listItems.resize(10);
+		m_listItems[0] = Item(Item::E_ITEM_KIND::WEAPON, "목검", "데미지 증가", Status(0, 0, 10), 100);
+		m_listItems[1] = Item(Item::E_ITEM_KIND::WEAPON, "본소드", "데미지 증가", Status(0, 0, 20), 100);
+		m_listItems[2] = Item(Item::E_ITEM_KIND::ARMOR, "나무갑옷", "방어력 증가", Status(0, 0, 0, 10), 100);
+		m_listItems[3] = Item(Item::E_ITEM_KIND::ARMOR, "본아머", "방어력 증가", Status(0, 0, 20), 100);
+		m_listItems[4] = Item(Item::E_ITEM_KIND::ACC, "나무반지", "체력 증가", Status(10), 100);
+		m_listItems[5] = Item(Item::E_ITEM_KIND::ACC, "해골반지", "체력 증가", Status(20), 100);
+		m_listItems[6] = Item(Item::E_ITEM_KIND::POTION, "힐링포션", "HP회복", Status(100), 100);
+		m_listItems[7] = Item(Item::E_ITEM_KIND::POTION, "마나포션", "MP회복", Status(0, 100), 100);
+		m_listItems[8] = Item(Item::E_ITEM_KIND::THROW, "짱돌", "단일 적 대미지", Status(0, 0, 50), 100);
+		m_listItems[9] = Item(Item::E_ITEM_KIND::THROW, "목검", "다수 적 대미지", Status(0, 0, 50), 100);
+	}
+
+	void SaveFile()
+	{
+		FILE* pFile = fopen("itemdatabase.csv", "wt");
+		if (pFile)
+		{
+			fprintf(pFile, "%d\n", m_listItems.size());
+			vector<Item>::iterator it = m_listItems.begin();
+			for (; it != m_listItems.end(); it++)
+			{
+				Item sItem = *(it);
+				fprintf(pFile, "%d,%s,%s,%d,%d,%d,%d,%d\n", sItem.eItemKind, sItem.strName.c_str(), sItem.strComment.c_str(), sItem.nGold,
+					sItem.sFuction.nHP, sItem.sFuction.nMP, sItem.sFuction.nStr, sItem.sFuction.nInt, sItem.sFuction.nDef);
+			}
+			fclose(pFile);
+		}
+		else
+			cout << " Save Failed!" << endl;
+	}
+
+	void LoadFile()
+	{
+		FILE* pFile = fopen("itemdatabase.csv", "rt");
+		if (pFile)
+		{
+			int nSize;
+			fscanf(pFile, "%d", &nSize);
+
+			for (int i = 0; i < nSize; i++)
+			{
+				char strTemp[1024];
+				fscanf(pFile, "%s\n", strTemp);
+				cout << strTemp << endl;
+				char  arrStrs[8][128];
+				char* strTemps = strtok(strTemp, ",");
+				int idx = 0;
+				while (strTemps != NULL)
+				{
+					//memcpy(arrStrs[idx], strTemps, 128);
+					strcpy(arrStrs[idx], strTemps);
+					cout << arrStrs[idx] << ",";
+					//cout << strTemps << ",";
+					strTemps = strtok(NULL, ",");
+					idx++;
+				}
+				cout << endl;
+				string name = arrStrs[1];
+				string info = arrStrs[2];
+				Item sItem((Item::E_ITEM_KIND)atoi(arrStrs[0]), name, info,
+					Status(atoi(arrStrs[4]), atoi(arrStrs[5]), atoi(arrStrs[6]), atoi(arrStrs[7])),
+					atoi(arrStrs[3]));
+				m_listItems.push_back(sItem);
+			}
+			fclose(pFile);
+		}
+		else
+			cout << " Save Failed!" << endl;
+	}
+	Item* GetItem(int idx)
+	{
+		return &m_listItems[idx];
+	}
+};
+
+class Player {
+	string m_strName;
+	Status m_sStatus;
+	int m_nLv;
+	int m_nExp;
+	int m_nGold;
+
+	vector<Item*> m_listIventory;
+	vector<Item*> m_listEqument;
+public:
+	Player()
+	{
+		m_listEqument.resize(3);
+		m_nGold = 9999999;
+	}
+
+	void SetIventory(Item* item)
+	{
+		m_listIventory.push_back(item);
+	}
+	Item* GetIventoryIdx(int idx)
+	{
+		return m_listIventory[idx];
+	}
+	void DeleteIventory(int idx)
+	{
+		m_listIventory.erase(m_listIventory.begin() + idx);
+	}
+
+	bool UseItem(int idx)
+	{
+		Item* pItem = GetIventoryIdx(idx);
+
+		if (pItem->eItemKind == Item::E_ITEM_KIND::THROW)
+			return false;
+
+		int nIdx = pItem->eItemKind;
+		m_listEqument[nIdx] = pItem;
+		m_sStatus = m_sStatus + pItem->sFuction;
+		DeleteIventory(idx);
+
+		return true;
+	}
+
+	void ReleaseEqument(int idx)
+	{
+		Item* pItem = m_listEqument[idx];
+		m_sStatus = m_sStatus - pItem->sFuction;
+		SetIventory(pItem);
+	}
+
+	void Set(string strName, int _hp, int _mp, int _str, int _int, int _def, int _exp)
+	{
+		m_strName = strName;
+		m_sStatus.nHP = _hp;
+		m_sStatus.nMP = _mp;
+		m_sStatus.nStr = _str;
+		m_sStatus.nInt = _int;
+		m_sStatus.nDef = _def;
+		m_nExp = _exp;
+		m_nLv = 1;
+	}
+
+	void Attack(Player& taget)
+	{
+		taget.m_sStatus.nHP -= m_sStatus.nStr - m_sStatus.nDef;
+	}
+
+	void StillItem(Player& taget)
+	{
+		//타겟이 가지고 있는 아이템 중 첫번째 아이템을 뺏어오고,
+		//타겟의 경험치를 가져와서 내 경험치에 올린다.
+		this->SetIventory(taget.GetIventoryIdx(0));
+		taget.DeleteIventory(0);
+		this->m_nExp = taget.m_nExp;
+	}
+
+	bool Buy(Player& target, int idx)
+	{
+		Item* item = target.GetIventoryIdx(idx);
+		if (item->nGold <= m_nGold)
+		{
+			SetIventory(item);
+			m_nGold -= item->nGold;
+			return true;
+		}
+		return false;
+	}
+
+	void Sell(int idx)
+	{
+		Item* item = GetIventoryIdx(idx);
+		DeleteIventory(idx);
+		m_nGold += item->nGold;
+	}
+
+	bool LvUp()
+	{
+		//만약 경험치가 100 이상되면, 레벨+1, 모든 능력치 10증가, 경험치 초기화.
+		if (m_nExp >= 100)
+		{
+			m_sStatus += 10;
+			m_nLv++;
+			m_nExp -= 100;
+			return true;
+		}
+		return false;
+	}
+
+	bool Dead()
+	{
+		if (m_sStatus.nHP <= 0)
+			return true;
+		return false;
+	}
+
+	void Show()
+	{
+		cout << "######### " << m_strName << " #########" << endl;
+		m_sStatus.Show();
+		cout << "######### Equment #########" << endl;
+		for (int i = 0; i < m_listEqument.size(); i++)
+			if (m_listEqument[i])
+				cout << i << ":" << m_listEqument[i]->strName << endl;
+			else
+				cout << i << ": null" << endl;
+		cout << "######### Inventory: " << m_nGold << " ######### " << endl;
+		for (int i = 0; i < m_listIventory.size(); i++)
+			cout << i << ":" << m_listIventory[i]->strName << endl;
+	}
+};
+//상점을 플레이를 이용하여 만들어보기. //사기,팔기
 void main()
 {
-	//PointerTestMain();
-	//FunctionAndPointerMain();
-	ArrayMain();
-	//Array2DTestMain();
+	enum E_STAGE { EXIT = -1, CRATE, IVNETORY, SHOP, TOWN, FILED, BATTLE, GAME_OVER, THE_END, MAX };
+	const char* strStageName[] = { "CRATE", "INVENTORY","SHOP","TOWN", "FILED", "BATTLE", "GAME_OVER", "THE_END" };
+
+	enum E_MONSTER { SILME, SKELETON, BOSS, MON_MAX };
+	const char* strMonsterName[] = { "SILME", "SKELETON", "BOSS" };
+
+	int eStage = E_STAGE::CRATE;
+
+	ItemManager cItemManager;
+	Player cPlayer;
+	Player cMonster;
+	Player cShop;
+
+	//cItemManager.Init();
+	//cItemManager.SaveFile();
+	cItemManager.LoadFile();
+
+	cShop.SetIventory(cItemManager.GetItem(ItemManager::E_ITEM_LIST::WOOD_SOWRD));
+	cShop.SetIventory(cItemManager.GetItem(ItemManager::E_ITEM_LIST::WOOD_ARMOR));
+	cShop.SetIventory(cItemManager.GetItem(ItemManager::E_ITEM_LIST::WOOD_RING));
+	cShop.SetIventory(cItemManager.GetItem(ItemManager::E_ITEM_LIST::BONE_SOWRD));
+	cShop.SetIventory(cItemManager.GetItem(ItemManager::E_ITEM_LIST::BONE_AMROR));
+	cShop.SetIventory(cItemManager.GetItem(ItemManager::E_ITEM_LIST::BONE_RING));
+	cShop.SetIventory(cItemManager.GetItem(ItemManager::E_ITEM_LIST::HP_POTION));
+	cShop.SetIventory(cItemManager.GetItem(ItemManager::E_ITEM_LIST::MP_POTION));
+	cShop.SetIventory(cItemManager.GetItem(ItemManager::E_ITEM_LIST::STONE));
+	cShop.SetIventory(cItemManager.GetItem(ItemManager::E_ITEM_LIST::BOOM));
+
+	cMonster.Set("Slime", 100, 100, 20, 10, 10, 100);
+	cMonster.SetIventory(cItemManager.GetItem(ItemManager::E_ITEM_LIST::WOOD_SOWRD));
+	//cMonster.SetIventory(Item(Item::E_ITEM_KIND::WEAPON, "목검", "데미지 증가", 0, 0, 10), 100));
+
+	while (eStage != E_STAGE::EXIT)
+	{
+		switch (eStage)
+		{
+		case E_STAGE::CRATE:
+		{
+			string name;
+			cout << "케릭터 이름을 입력하세요!:";
+			cin >> name;
+			cPlayer.Set(name, 100, 100, 20, 10, 10, 0);
+			eStage = E_STAGE::TOWN;
+		}
+		break;
+		case E_STAGE::IVNETORY:
+		{
+			cPlayer.Show();
+			int nSelect;
+			cout << "메뉴를 선택하세요!(1: 아이템사용. 2: 장비해제 etc: 마을):";
+			cin >> nSelect;
+			if (nSelect == 1)
+			{
+				cout << "사용할 아이템을 구하세요!:";
+				cin >> nSelect;
+				if (!cPlayer.UseItem(nSelect))
+					cout << "사용할수없습니다!" << endl;
+			}
+			else if (nSelect == 2)
+			{
+				cout << "장비해제할 장비함에서 선택하세요!:";
+				cin >> nSelect;
+				cPlayer.ReleaseEqument(nSelect);
+			}
+			else
+				eStage = E_STAGE::TOWN;
+		}
+		break;
+		case E_STAGE::SHOP:
+		{
+			cShop.Show();
+			int nInput;
+			cout << "상점입니다. 무엇을 하시겠습니까? 1: 구매, 2: 팔기, etc:마을";
+			cin >> nInput;
+			switch (nInput)
+			{
+			case 1:
+			{
+				cout << "구매할 아이템을 목록에서 선택하세요! -1:마을";
+				cin >> nInput;
+				if (nInput != -1)
+					cPlayer.Buy(cShop, nInput);
+				else
+					eStage = E_STAGE::TOWN;
+			}
+			break;
+			case 2:
+			{
+				cPlayer.Show();
+				cout << "판매할 아이템을 목록에서 선택하세요! -1:마을";
+				cin >> nInput;
+				if (nInput != -1)
+					cPlayer.Sell(nInput);
+				else
+					eStage = E_STAGE::TOWN;
+			}
+			break;
+			default:
+			{
+				eStage = E_STAGE::TOWN;
+			}
+			break;
+			}
+
+		}
+		break;
+		case E_STAGE::TOWN:
+		{
+			cout << "마을 입니다." << endl;
+			cout << "어디로 가시겠습니까?" << endl;
+			for (int i = E_STAGE::CRATE + 1; i < E_STAGE::BATTLE; i++)
+				cout << i << ":" << strStageName[i] << ",";
+			cin >> eStage;
+		}
+		break;
+		case E_STAGE::FILED:
+		{
+			int nSelect;
+			cout << "어디로 가시겠습니까?";
+			for (int i = 0; i < E_MONSTER::MON_MAX; i++)
+				cout << i << ":" << strMonsterName[i] << ",";
+			cin >> nSelect;
+			switch (nSelect)
+			{
+			case E_MONSTER::SILME:
+				cMonster.Set("Slime", 100, 100, 20, 10, 10, 100);
+				break;
+			case E_MONSTER::SKELETON:
+				cMonster.Set("Skeleton", 200, 200, 30, 10, 10, 100);
+				break;
+			case E_MONSTER::BOSS:
+				cMonster.Set("Boss", 300, 100, 50, 10, 10, 100);
+				break;
+			}
+			eStage = E_STAGE::BATTLE;
+		}
+		break;
+		case E_STAGE::BATTLE:
+		{
+			if (cPlayer.Dead() == false)
+				cPlayer.Attack(cMonster);
+			else
+			{
+				eStage = GAME_OVER;
+			}
+			cMonster.Show();
+			if (cMonster.Dead() == false)
+				cMonster.Attack(cPlayer);
+			else
+			{
+				cPlayer.StillItem(cMonster);
+				if (cPlayer.LvUp())
+					cout << "랩업!" << endl;
+				eStage = TOWN;
+			}
+		}
+		break;
+		case E_STAGE::GAME_OVER:
+			printf("GAME\OVER");
+			break;
+		case E_STAGE::THE_END:
+			printf("THE EMD");
+			break;
+		default:
+			break;
+		}
+
+	}
 }
