@@ -107,16 +107,43 @@ void ArrayMain()
 	//메모리 복사를 이용하면 메모리를 일정크기만큼 복사하므로 빠르다.
 	memcpy_s(arrCopyScore, sizeof(arrCopyScore), arrScore, sizeof(arrCopyScore));
 }
-
+//4x3크기의 배열을 만들고,
+//크기가 12인 1차원배열을 만들어 각각 이중for문을 이용하여 값을 저장하고, 
+//주소값,인덱스,원소의 값출력하기
 void Array2DTestMain()
 {
-	i
+	const int nSizeX = 4;
+	const int nSizeY = 3;
+	const int nSize = nSizeY * nSizeX;
+	int arr2DArray[nSizeY][nSizeX];
+	int arrFake2DArray[nSize];
+	for (int y = 0; y < nSizeY; y++)//0,1,2,3
+	{
+		for (int x = 0; x < nSizeX; x++)//0,1,2
+		{
+			arr2DArray[y][x] = y * nSizeY + x;//[0][0]:0 //[0][1]:1 //[0][2]:2 //[0][3]:3 ////[1][0]:0 //[1][1]:4 //[1][2]:5 //[1][3]:6 .....
+			printf("%d[%d,%d]:%d,", &arr2DArray[y][x], y, x, arr2DArray[y][x], arr2DArray[y][x]);
+		}
+		printf("\n");
+	}
+
+	for (int y = 0; y < nSizeY; y++)//0,1,2,3
+	{
+		for (int x = 0; x < nSizeX; x++)//0,1,2
+		{
+			int idx = y * nSizeY + x;
+			arrFake2DArray[idx] = idx;
+			printf("%d[%d,%d]:%d,", &arrFake2DArray[idx], y, x, arrFake2DArray[idx], arrFake2DArray[idx]);
+		}
+		printf("\n");
+	}
 }
 
 void main()
 {
 	//PointerTestMain();
 	//FunctionAndPointerMain();
-	ArrayMain();
+	//ArrayMain();
+	Array2DTestMain();
 	//Array2DTestMain();
 }
