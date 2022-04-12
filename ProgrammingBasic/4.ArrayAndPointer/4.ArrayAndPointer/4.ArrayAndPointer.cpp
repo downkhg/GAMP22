@@ -138,12 +138,89 @@ void Array2DTestMain()
 		printf("\n");
 	}
 }
+//PrintString(출력할내용의 제목,출력할 문자열,인덱스출력여부)
+void PrintString(const char* msg, const char* str, bool isIdx)
+{
+	int idx = 0;
+	printf("%s", msg);
+	while (str[idx] != '\0')//%s는 문자열끝 전까지만 출력하도록 작동한다.
+	{
+		if(isIdx) printf("[%d]%c,", idx, str[idx]);
+		else printf("%c,", idx, str[idx]);
+		idx++;
+	}
+	printf("\n");
+}
+
+//문자열을 이용할때 남는 배열의 크기는 어떻게될까?
+//문자열은 적당한 크기안에 저장해서 변경해야하므로, 문자열끝을 알아야 출력을 그만 할수있다.
+//%s를 이용하면 널문자전까지만 출력을 하므로 출력시에 문자열에 필요한부분만 볼수있다.
+//"문자열"를 이용하여 저장하면, 문장 제일 끝에 자동으로 널문자가 할당된다.
+void StringTestMain()
+{
+	const int nSize = 16;
+	char strWord[nSize] = "gameprograming";//24 - 14 = 10 //남은 10칸은 어떻게 될까?
+	//문자열끝이없는 문자는 어떻게 출력될까?
+	strWord[0] = 't';
+	strWord[1] = 'e';
+	strWord[2] = 's';
+	strWord[3] = 't';
+	strWord[4] = 0;// '\0';//널문자: 문자열의 끝을 알리는 문자: '\0'(== 0)
+	printf("for:");
+	for (int i = 0; i < nSize; i++)
+		printf("%c",strWord[i]);
+	printf("\n");
+	printf("string: %s\n", strWord);
+	PrintString("while:", strWord, false);
+	printf("\n");
+}
+
+void FullNameMakerMain()
+{
+	char strLastName[8] = "k";
+	char strFirstName[8] = "hg";
+	char strFullNameKr[16];
+	char strFullNameEn[16];
+
+	strcpy(strFullNameKr, strLastName);
+	strcat(strFullNameKr, strFirstName);
+	printf("Kr(%s, %s)[%d]: %s\n",strFirstName, strLastName, strlen(strFullNameKr), strFullNameKr);
+	PrintString("krWihle", strFullNameKr,true);
+	sprintf(strFullNameEn,"%s %s",strFirstName,strLastName);
+	printf("En(%s, %s)[%d]: %s\n", strFirstName, strLastName, strlen(strFullNameEn), strFullNameEn);
+
+	int nResult = strcmp(strLastName, strFirstName); //문자열의 길이차이를 반환한다. 같으면 0을 반환함.
+	if(!strcmp(strLastName, strFirstName)) //일반적으로 문자열비교시 다음과 같이 활용한다.
+	//if (!nResult)
+	{
+		printf("%d: %s == %s\n", nResult,strLastName,strFirstName);
+	}
+	else
+	{
+		printf("%d: %s != %s\n", nResult, strLastName, strFirstName);
+	}
+}
+/*
+정답:GAME
+Q: _ _ _ _
+A : G
+Q : G _ _ _
+......(중략)
+A : GA_E
+Q : M
+A : GAME
+*/
+void HangManGameMain()
+{
+
+}
 
 void main()
 {
 	//PointerTestMain();
 	//FunctionAndPointerMain();
 	//ArrayMain();
-	Array2DTestMain();
 	//Array2DTestMain();
+	FullNameMakerMain();
+	//StringTestMain();
 }
