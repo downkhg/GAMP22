@@ -145,7 +145,6 @@ void TextFileWriteMain()
 		fclose(pOpenFile);
 	}
 }
-
 void TextFileReadMain()
 {
 	FILE* pOpenFile;
@@ -181,19 +180,17 @@ void BinaryFileReadMain()
 		fclose(pOpenFile);
 	}
 }
-
 void StructSizeTestMain()
 {
 	printf("StatusSize:%d\n",sizeof(Status));
 	printf("RPGPlayerSize:%d\n", sizeof(RPGPlayer));
 }
-
 void main()
 {
+	//StructSizeTestMain();
 	//TextFileWriteMain();
 	//TextFileReadMain();
 	//BinaryFileWriteMain();
 	//BinaryFileReadMain();
 	RPGDataSaveLoadTestMain();
-	//StructSizeTestMain();
 }
