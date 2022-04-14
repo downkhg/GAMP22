@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+//구조체: 변수를 모아서 새로운 타입을 정의함.
 struct Status //12
 {
 	int nHP;
@@ -8,9 +9,9 @@ struct Status //12
 };
 //구조체의 메모리를 할당할때 크기가 4씩 할당되므로 크기를 잡을때 4의 배수를 이용해야한다.
 //더 작은 메모리를 잡더라도 메모리에 빈공간이 생겨 사용량은 같다. EX) 9,10,11,12 -> 32
-struct RPGPlayer //148
+struct RPGPlayer //18
 {
-	char strName[8]; //128
+	char strName[12]; //12
 	Status sStatus; //12
 	int nExp; //4
 	int nLv; //4
@@ -187,10 +188,10 @@ void StructSizeTestMain()
 }
 void main()
 {
-	//StructSizeTestMain();
+	StructSizeTestMain();
 	//TextFileWriteMain();
 	//TextFileReadMain();
 	//BinaryFileWriteMain();
 	//BinaryFileReadMain();
-	RPGDataSaveLoadTestMain();
+	//RPGDataSaveLoadTestMain();
 }
