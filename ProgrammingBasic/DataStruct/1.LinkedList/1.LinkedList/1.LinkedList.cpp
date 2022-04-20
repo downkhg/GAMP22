@@ -82,7 +82,17 @@ SNode* CreateNode(SNode* pNode, int data)
 SNode* FindNodeData(SNode* pStart, int data)
 {
 	SNode* pNode = pStart;
-
+	if (pStart->nData != data)//10 != 40
+		pNode = pStart->pNext;
+	while (true)
+	{
+		//if (pNode->nData != data)//20 != 40
+		//	pNode = pNode->pNext;
+		if (pNode->nData != data)//30 != 40
+			pNode = pNode->pNext;
+		else//40 != 40
+			break;
+	}
 	return pNode;
 }
 
