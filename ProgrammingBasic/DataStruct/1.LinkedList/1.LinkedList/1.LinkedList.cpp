@@ -33,8 +33,8 @@ void InputAdd();
 //main()함수 내 코드는 추가는 가능하지만 삭제는 하지말것!
 void main()
 {
-	//_CrtSetBreakAlloc(71); //메모리 누수시 번호를 넣으면 할당하는 위치에 브레이크 포인트를 건다.
-	//_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); //메모리 누수 검사 
+	_CrtSetBreakAlloc(81); //메모리 누수시 {번호}를 넣으면 할당하는 위치에 브레이크 포인트를 건다. ex) {85} normal block at 0x00AFEC30, 8 bytes long.//중단되면, 호출스택에서 CreateNode함수를 찾는다. 매개변수를 확인하면 어떤 노드가 할당될때 오류가 난지 알수있다.
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); //메모리 누수 검사 //F5로 실행후 출력란에 "Detected memory leaks!"가 뜨면 누수된것이다. //DeleteLinkedList가 정상적으로 구현되면, "Detected memory leaks!" 츨력이 없으면 메모리 누수가 발생하지않은 것이다.
 
 	SNode* pBegin = NULL;
 	SNode* pEnd = NULL;
@@ -54,7 +54,10 @@ void main()
 	if (pFind != NULL)
 		printf("Find:%d\n", pFind->nData);
 
-	pEnd = InsertNodeData(pBegin, 30, 60);//노드 삽입
+	SNode* pInsert = InsertNodeData(pBegin, 30, 60);//노드 삽입//
+
+	if (pInsert != NULL)//0x06 != NULL -> T
+		printf("Insert:%d\n", pInsert->nData);//Insert:60
 
 	PrintLinkedList(pBegin);
 
@@ -103,7 +106,12 @@ SNode* InsertNodeData(SNode* pStart, int data, int insert)
 
 	pNode = FindNodeData(pStart, data);
 
-	return pNode;
+	pInsert = new SNode();
+	pInsert->nData = insert;
+	pInsert->pNext = pNode->pNext;
+	pNode->pNext = pInsert;
+
+	return pInsert;
 }
 
 void DeleteNodeData(SNode* pStart, int del)
@@ -111,7 +119,21 @@ void DeleteNodeData(SNode* pStart, int del)
 	SNode* pPre = NULL;
 	SNode* pNode = pStart;
 
-
+	while (true)
+	{
+		if (pNode->nData != del)//60 != 60 -> F
+		{
+			pPre = pNode;//
+			pNode = pNode->pNext;//
+		}
+		else
+		{
+			pPre->pNext = pNode->pNext;
+			delete pNode;
+			break;
+		}
+	}
+	//pPre = FindNodeData(pStart, 30); //어떤값이든 성립되어야한다.
 }
 
 void PrintLinkedList(SNode* pStart)
