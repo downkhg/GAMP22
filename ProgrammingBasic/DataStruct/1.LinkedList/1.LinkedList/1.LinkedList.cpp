@@ -21,7 +21,7 @@ SNode* FindNodeData(SNode* pStart, int data); //해당 데이터를 가진 노드를 찾는다
 SNode* InsertNodeData(SNode* pStart, int data, int insert); //해당 데이터를 가진 노드 뒤에 노드를 추가한다.
 void DeleteNodeData(SNode* pStart, int del); //해당데이터를 가진 노드를 삭제한다.
 void PrintLinkedList(SNode* pStart); //노드를 순회하며 끝날때까지 출력한다.
-void DeleteLinkedList(SNode* pStart); //노드를 순회하며 모든데이터를 삭제한다.
+void DeleteLinkedList(SNode* *pStart); //노드를 순회하며 모든데이터를 삭제한다.
 void ReverseLinkedList(SNode* pStart); //
 
 									   //연결리스트 동적으로 입력받기.(동적할당 설명용)
@@ -33,7 +33,7 @@ void InputAdd();
 //main()함수 내 코드는 추가는 가능하지만 삭제는 하지말것!
 void main()
 {
-	_CrtSetBreakAlloc(81); //메모리 누수시 {번호}를 넣으면 할당하는 위치에 브레이크 포인트를 건다. ex) {85} normal block at 0x00AFEC30, 8 bytes long.//중단되면, 호출스택에서 CreateNode함수를 찾는다. 매개변수를 확인하면 어떤 노드가 할당될때 오류가 난지 알수있다.
+	//_CrtSetBreakAlloc(87); //메모리 누수시 {번호}를 넣으면 할당하는 위치에 브레이크 포인트를 건다. ex) {85} normal block at 0x00AFEC30, 8 bytes long.//중단되면, 호출스택에서 CreateNode함수를 찾는다. 매개변수를 확인하면 어떤 노드가 할당될때 오류가 난지 알수있다.
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); //메모리 누수 검사 //F5로 실행후 출력란에 "Detected memory leaks!"가 뜨면 누수된것이다. //DeleteLinkedList가 정상적으로 구현되면, "Detected memory leaks!" 츨력이 없으면 메모리 누수가 발생하지않은 것이다.
 
 	SNode* pBegin = NULL;
@@ -55,6 +55,7 @@ void main()
 		printf("Find:%d\n", pFind->nData);
 
 	SNode* pInsert = InsertNodeData(pBegin, 30, 60);//노드 삽입//
+	//pInsert = InsertNodeData(pBegin, 70, 80);//노드 삽입//
 
 	if (pInsert != NULL)//0x06 != NULL -> T
 		printf("Insert:%d\n", pInsert->nData);//Insert:60
@@ -62,10 +63,15 @@ void main()
 	PrintLinkedList(pBegin);
 
 	DeleteNodeData(pBegin, 60);//노드 삭제
+	//DeleteNodeData(pBegin, 10);//노드 삭제
+	//DeleteNodeData(pBegin, 50);//노드 삭제
+	//DeleteNodeData(pBegin,-10);//노드 삭제
 
 	PrintLinkedList(pBegin);
 
-	DeleteLinkedList(pBegin); //모든노드삭제 - 이 함수를 호출하지않을시 메모리가 누수됨.
+	DeleteLinkedList(&pBegin); //모든노드삭제 - 이 함수를 호출하지않을시 메모리가 누수됨.
+
+	PrintLinkedList(pBegin);
 }
 
 //여기서 부터 기능을 구현한다.
@@ -106,10 +112,13 @@ SNode* InsertNodeData(SNode* pStart, int data, int insert)
 
 	pNode = FindNodeData(pStart, data);
 
-	pInsert = new SNode();
-	pInsert->nData = insert;
-	pInsert->pNext = pNode->pNext;
-	pNode->pNext = pInsert;
+	if (pNode)
+	{
+		pInsert = new SNode();
+		pInsert->nData = insert;
+		pInsert->pNext = pNode->pNext;
+		pNode->pNext = pInsert;
+	}
 
 	return pInsert;
 }
@@ -151,10 +160,19 @@ void PrintLinkedList(SNode* pStart)
 	printf("\n");
 }
 
-void DeleteLinkedList(SNode* pStart)
+void DeleteLinkedList(SNode* *pStart)
 {
-	SNode* pNode = pStart;
+	SNode* pNode = *pStart;
 	SNode* pDel = NULL;
+
+	while (pNode != NULL)
+	{
+		pDel = pNode;
+		pNode = pNode->pNext;
+		delete pDel;//
+	}
+
+	*pStart = NULL;
 }
 
 void InputAdd()
@@ -185,5 +203,5 @@ void InputAdd()
 		PrintLinkedList(pStart);
 	}
 
-	DeleteLinkedList(pStart); //모든노드삭제 - 이 함수를 호출하지않을시 메모리가 누수됨.
+	DeleteLinkedList(&pStart); //모든노드삭제 - 이 함수를 호출하지않을시 메모리가 누수됨.
 }
