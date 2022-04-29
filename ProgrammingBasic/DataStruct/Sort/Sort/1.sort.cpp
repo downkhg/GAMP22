@@ -24,6 +24,7 @@ int FindMinIdx(int startIdx, int arrData[], int size)
 
 void InsertSortMain()
 {
+	//                0,1,2,3,4,5,6,7,8
 	int arrData[] = { 8,1,7,4,2,3,9,5,6 };
 	int nSize = sizeof(arrData) / sizeof(int);
 	
@@ -31,7 +32,7 @@ void InsertSortMain()
 	
 	for (nSelIdx = 0; nSelIdx < nSize-1; nSelIdx++)
 	{
-		int nStartIdx = nSelIdx + 1;
+		int nStartIdx = nSelIdx;
 		int nMinIdx = FindMinIdx(nStartIdx, arrData, nSize);
 		/*int nMinIdx = nStartIdx;
 		for (int i = nSelIdx; i < nSize; i++)
@@ -42,8 +43,15 @@ void InsertSortMain()
 				printf("MinIdx[%d]%d<->[%d]%d", nMinIdx,arrData[nMinIdx], i, arrData[i]);
 			}
 		}*/
-		printf("SwapIdx[%d]<->[%d]\n",nSelIdx, nMinIdx);
-		Swap(arrData[nSelIdx], arrData[nMinIdx]);
+		
+		if (nSelIdx != nMinIdx)//최소값과 선택값이 같다면 변경할 필요가없다.
+		{
+			printf("SwapIdx[%d]:%d<->[%d]%d\n", nSelIdx, arrData[nSelIdx], nMinIdx, arrData[nMinIdx]);
+			Swap(arrData[nSelIdx], arrData[nMinIdx]);
+			printf("SwapIdx[%d]:%d<->[%d]%d\n", nSelIdx, arrData[nSelIdx], nMinIdx, arrData[nMinIdx]);
+		}
+		else
+			printf("Min == Sel\n");
 	}
 	
 	for (int i = 0; i < nSize; i++)
