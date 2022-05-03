@@ -25,7 +25,7 @@ SNode* CreateNode(int data)
 };
 bool MakeLeft(SNode* pParent, SNode* pChilde)
 {
-	if (pParent == NULL)
+	if (pParent == NULL)//0x01 == NULL -> F
 		return false;
 	pParent->pLeft = pChilde;
 	return true;
@@ -40,7 +40,7 @@ bool MakeRight(SNode* pParent, SNode* pChilde)
 
 void Traverse(SNode* pNode)
 {
-	if (!pNode) return;
+	if (pNode == NULL) return; //N == N -> T
 	//printf("%d\n", pNode->nData); //전위
 	Traverse(pNode->pLeft);
 	//printf("%d\n", pNode->nData); //중위
@@ -53,15 +53,48 @@ void Print(SNode* pSeed)
 	Traverse(pSeed);
 }
 
+void MakeMinHeapTree(SNode* pParent, SNode* pNode)
+{
+	static int nLv = 0;
+	nLv++;
+	printf("MakeMinHeap[%d]:%d/%d\n", nLv, pParent->nData, pNode->nData);
+	if (pParent->pLeft == NULL)
+	{
+		pParent->pLeft = pNode;
+		printf("%d MakeLeft!\n",pNode->nData);
+		return;
+	}
+	else if (pParent->pRight == NULL)
+	{
+		pParent->pRight = pNode;
+		printf("%d MakeRiht!\n", pNode->nData);
+		return;
+	}
+	else
+	{
+		MakeMinHeapTree(pParent->pLeft, pNode);
+	}
+}
+
 void main()
 {
 	SNode* pSeed = NULL;
 
+	SNode* pNodes[5];
+	for (int i = 0; i < 5; i++)
+	{
+		pNodes[i] = CreateNode((i + 1) * 10);
+		if (pSeed == NULL)
+			pSeed = pNodes[i];
+		else
+			MakeMinHeapTree(pSeed, pNodes[i]);
+	}
+	/*
 	SNode* pParent = CreateNode(10);
 	SNode* pLeft = CreateNode(20);
 	SNode* pRight = CreateNode(30);
 	SNode* pD = CreateNode(40);
-	SNode* pE = CreateNode(50);
+	SNode* pE = CreateNode(50);//
 
 	MakeLeft(pParent, pLeft);
 	MakeRight(pParent, pRight);
@@ -70,6 +103,7 @@ void main()
 	MakeRight(pLeft, pE);
 
 	pSeed = pParent;
-
+	*/
 	Print(pSeed);
+	printf("##### End Main ####");
 }
