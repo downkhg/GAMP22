@@ -61,7 +61,7 @@ void VectorMain()
 //4.찾기 70
 //5.삽입: 70에 -20
 //5.1.80이라면 찾은 값이 70이아니므로 find에 문제가 있다?
-//6.-20 지우기
+//6.-20 지우기, 랜덤접근
 //7.뒤집기, 모두삭제
 void VectorTestMain()
 {
@@ -97,7 +97,6 @@ void VectorTestMain()
 	if (itFind != container.end())
 		cout <<"4.itFind["<<&(*itFind)<<"]:"<<*itFind << endl;
 
-	
 	vector<int>::iterator itInsert = container.insert(itFind, -20);
 	cout << "5.insert:";
 	vector<int>::iterator it;
@@ -108,11 +107,17 @@ void VectorTestMain()
 	//if (itFind != container.end()) //itFind는 존재하지않는다.
 	//	cout << "itFind[" << &(*itFind) << "]:" << *itFind << endl;
 	container.erase(itInsert);
-	cout << "6.erase:";
+	cout << "6-1.erase:";
 	for (it = container.begin(); it != container.end(); it++)
 		cout << &(*it) << ":" << *it << ",";
 	cout << endl;
-
+	cout << "6-2.ramdom iterator"<<endl;
+	it = container.begin() + 3;
+	if (it != container.end())
+		cout <<"begin+3:"<< *it << endl;
+	it = container.end() - 3;
+	if (it != container.end())
+		cout << "end+3:" << *it << endl;
 	reverse(container.begin(), container.end());
 	cout << "7-1.reverse:";
 	for (it = container.begin(); it != container.end(); it++)
@@ -132,12 +137,152 @@ void VectorTestMain()
 //3.연결리스트의 종류: 단일, 환형, 이중 stl의 리스트는 어디에 해당되는가?
 void ListMain()
 {
+	list<int> container(10);
+	list<int>::iterator it;
+	int i = 0;
+	for (it = container.begin(); it != container.end(); it++)
+	{
+		*it = 100 - (10 * i);
+		i++;
+	}
+	cout << "1.init(" << container.size() << "):";
+	for (it = container.begin(); it != container.end(); it++)
+		cout << &(*it) << ":" << *it << ",";
+	cout << endl;
 
+	container.resize(5);
+	cout << "2.resize(" << container.size() << "):";
+	for (it = container.begin(); it != container.end(); it++)
+		cout << &(*it) << ":" << *it << ",";
+	cout << endl;
+
+	container.push_back(0);
+	cout << "3-1.push_back(0):";
+	for (it = container.begin(); it != container.end(); it++)
+		cout << &(*it) << ":" << *it << ",";
+	cout << endl;
+
+	container.push_back(-10);
+	cout << "3-2.push_back(-10):";
+	for (it = container.begin(); it != container.end(); it++)
+		cout << &(*it) << ":" << *it << ",";
+	cout << endl;
+
+	list<int>::iterator itFind = find(container.begin(), container.end(), 70);
+	if (itFind != container.end())
+		cout << "4.itFind[" << &(*itFind) << "]:" << *itFind << endl;
+
+	list<int>::iterator itInsert = container.insert(itFind, -20);
+	cout << "5.insert:";
+	for (it = container.begin(); it != container.end(); it++)
+		cout << &(*it) << ":" << *it << ",";
+	cout << endl;
+
+	//if (itFind != container.end()) //itFind는 존재하지않는다.
+	//	cout << "itFind[" << &(*itFind) << "]:" << *itFind << endl;
+	container.erase(itInsert);
+	cout << "6.erase:";
+	for (it = container.begin(); it != container.end(); it++)
+		cout << &(*it) << ":" << *it << ",";
+	cout << endl;
+	cout << "6-2. dual iterator" << endl;
+	it = ++container.begin();
+	if (it != container.end())
+		cout << "begin++:" << *it << endl;
+	it = --container.end();
+	if (it != container.end())
+		cout << "end--:" << *it << endl;
+	reverse(container.begin(), container.end());
+	cout << "7-1.reverse:";
+	for (it = container.begin(); it != container.end(); it++)
+		cout << &(*it) << ":" << *it << ",";
+	cout << endl;
+
+	container.clear();
+	cout << "7-2.clear:";
+	for (it = container.begin(); it != container.end(); it++)
+		cout << &(*it) << ":" << *it << ",";
+	cout << endl;
 }
 //데크: 앞뒤로 자료를 추가/삭제가능, 랜덤접근가능.
 void DequeMain()
 {
+	deque<int> container(10);
+	for (int i = 0; i < container.size(); i++)
+		container[i] = 100 - (10 * i);
 
+	cout << "1.init(" << container.size() << "):";
+	for (int i = 0; i < container.size(); i++)
+		cout << i << ":" << container[i] << ",";
+	cout << endl;
+
+	container.resize(5);
+	cout << "2.resize(" << container.size() << "):";
+	for (int i = 0; i < container.size(); i++)
+		cout << i << ":" << container[i] << ",";
+	cout << endl;
+
+	container.push_back(0);
+	cout << "3-1.push_back(0):";
+	for (int i = 0; i < container.size(); i++)
+		cout << &container[i] << "[" << i << "]:" << container[i] << ",";
+	cout << endl;
+
+	container.push_back(-10);
+	cout << "3-2.push_back(-10):";
+	for (int i = 0; i < container.size(); i++)
+		cout << &container[i] << "[" << i << "]:" << container[i] << ",";
+	cout << endl;
+
+	container.push_front(110);
+	cout << "3-3.push_back(110):";
+	for (int i = 0; i < container.size(); i++)
+		cout << &container[i] << "[" << i << "]:" << container[i] << ",";
+	cout << endl;
+
+	container.push_back(-10);
+	cout << "3-2.push_back(-10):";
+	for (int i = 0; i < container.size(); i++)
+		cout << &container[i] << "[" << i << "]:" << container[i] << ",";
+	cout << endl;
+
+
+	deque<int>::iterator itFind = find(container.begin(), container.end(), 70);
+	if (itFind != container.end())
+		cout << "4.itFind[" << &(*itFind) << "]:" << *itFind << endl;
+
+	deque<int>::iterator itInsert = container.insert(itFind, -20);
+	cout << "5.insert:";
+	deque<int>::iterator it;
+	for (it = container.begin(); it != container.end(); it++)
+		cout << &(*it) << ":" << *it << ",";
+	cout << endl;
+
+	//if (itFind != container.end()) //itFind는 존재하지않는다.
+	//	cout << "itFind[" << &(*itFind) << "]:" << *itFind << endl;
+	container.erase(itInsert);
+	cout << "6-1.erase:";
+	for (it = container.begin(); it != container.end(); it++)
+		cout << &(*it) << ":" << *it << ",";
+	cout << endl;
+	cout << "6-2.ramdom iterator" << endl;
+	it = container.begin() + 3;
+	if (it != container.end())
+		cout << "begin+3:" << *it << endl;
+	it = container.end() - 3;
+	if (it != container.end())
+		cout << "end+3:" << *it << endl;
+	reverse(container.begin(), container.end());
+	cout << "7-1.reverse:";
+	for (it = container.begin(); it != container.end(); it++)
+		cout << &(*it) << ":" << *it << ",";
+	cout << endl;
+
+	container.clear();
+	cout << "7-2.clear:";
+	for (it = container.begin(); it != container.end(); it++)
+		cout << &(*it) << ":" << *it << ",";
+	cout << endl;
 }
 //스택: 뒤에서 추가되고 뒤에서 꺼냄.
 //재귀함수에서 이전 함수를 호출할때마다 스택에 쌓임.
@@ -149,12 +294,16 @@ void StackMain()
 //큐: 뒤에서 추가하고 앞에서 꺼냄.
 //메세지큐: 이벤트가 발생한 순서대로 저장하는 공간.
 //입력된 순서대로 명령어 처리하기
+//입력: A,B,C,D -> 출력: A,B,C,D
 void QueueMain()
 {
 
 }
 //우선순위큐: 우선순위가 높은 원소가 먼저나감(힙)
 //무작위로 데이터를 넣었을때 어떤 순서대로 데이터가 나오는가? 큰값부터 나온다.
+//10,20,30 -> 30,20,10
+//30,20,10 -> 30,20,10
+//20,10,30 -> 30,20,10
 void PriorytyQueueMain()
 {
 
@@ -206,7 +355,7 @@ void HashMapMain()
 void main()
 {
 	//VectorMain();
-	VectorTestMain();
+	//VectorTestMain();
 	//ListMain();
 	//DequeMain();
 	//StackMain();
