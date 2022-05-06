@@ -55,6 +55,77 @@ void VectorMain()
 		cout << &*it << ":" << *it << ",";
 	cout << endl;
 }
+//1.크기 10으로 생성. 100에서 10씩 감소하여 각 원소의 값을 설정한다.
+//2.크기조절 5개
+//3.맨끝에 추가 0,-10
+//4.찾기 70
+//5.삽입: 70에 -20
+//5.1.80이라면 찾은 값이 70이아니므로 find에 문제가 있다?
+//6.-20 지우기
+//7.뒤집기, 모두삭제
+void VectorTestMain()
+{
+	
+	vector<int> container(10);
+	for (int i = 0; i < container.size(); i++)
+		container[i] = 100 - (10 * i);
+
+	cout << "1.init(" << container.size() << "):";
+	for (int i = 0; i < container.size(); i++)
+		cout << i << ":" << container[i] << ",";
+	cout << endl;
+
+	container.resize(5);
+	cout << "2.resize("<<container.size()<<"):";
+	for (int i = 0; i < container.size(); i++)
+		cout << i << ":" << container[i] << ",";
+	cout << endl;
+
+	container.push_back(0);
+	cout << "3-1.push_back(0):";
+	for (int i = 0; i < container.size(); i++)
+		cout << &container[i] << "["<< i << "]:" << container[i] << ",";
+	cout << endl;
+
+	container.push_back(-10);
+	cout << "3-2.push_back(-10):";
+	for (int i = 0; i < container.size(); i++)
+		cout << &container[i] << "[" << i << "]:" << container[i] << ",";
+	cout << endl;
+
+	vector<int>::iterator itFind = find(container.begin(), container.end(), 70);
+	if (itFind != container.end())
+		cout <<"4.itFind["<<&(*itFind)<<"]:"<<*itFind << endl;
+
+	
+	vector<int>::iterator itInsert = container.insert(itFind, -20);
+	cout << "5.insert:";
+	vector<int>::iterator it;
+	for (it = container.begin(); it != container.end(); it++)
+		cout << &(*it) << ":" << *it << ",";
+	cout << endl;
+
+	//if (itFind != container.end()) //itFind는 존재하지않는다.
+	//	cout << "itFind[" << &(*itFind) << "]:" << *itFind << endl;
+	container.erase(itInsert);
+	cout << "6.erase:";
+	for (it = container.begin(); it != container.end(); it++)
+		cout << &(*it) << ":" << *it << ",";
+	cout << endl;
+
+	reverse(container.begin(), container.end());
+	cout << "7-1.reverse:";
+	for (it = container.begin(); it != container.end(); it++)
+		cout << &(*it) << ":" << *it << ",";
+	cout << endl;
+
+	container.clear();
+	cout << "7-2.clear:";
+	for (it = container.begin(); it != container.end(); it++)
+		cout << &(*it) << ":" << *it << ",";
+	cout << endl;
+}
+
 //연결리스트
 //1.데이터는 순차접근만 가능하다.(랜덤x)
 //2.연결리스트에 추가,삽입,삭제은 O(1)이다.
@@ -134,7 +205,8 @@ void HashMapMain()
 }
 void main()
 {
-	VectorMain();
+	//VectorMain();
+	VectorTestMain();
 	//ListMain();
 	//DequeMain();
 	//StackMain();
