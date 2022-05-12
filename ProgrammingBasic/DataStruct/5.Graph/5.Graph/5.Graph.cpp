@@ -49,6 +49,33 @@ void Traverse(SNode* pNode)
 	}
 }
 
+void TraverseDFS(SNode* pNode, bool bPrint = true)
+{
+	if (pNode->bVisit == false)
+	{
+		if (bPrint) printf("%c,", pNode->cData);//A//B
+		if (pNode->bVisit == false)
+		{
+			pNode->bVisit = true;
+
+			if (!pNode->listAdj.empty())
+			{
+				list<SNode*>::iterator  it;
+				for (it = pNode->listAdj.begin(); it != pNode->listAdj.end(); it++)
+				{
+					TraverseDFS(*it);//F
+				}
+			}
+		}
+	}
+}
+
+void DFS(SNode* pNode, bool bPrint = true)
+{
+	TraverseDFS(pNode, bPrint);
+	printf("\n");
+}
+
 void Print(SNode* pSeed)
 {
 	Traverse(pSeed);
@@ -67,6 +94,7 @@ void main()
 	}
 	
 	MakeAdjcency(pNodes[A], pNodes[B]);
+	MakeAdjcency(pNodes[A], pNodes[C]);
 	MakeAdjcency(pNodes[B], pNodes[D]);
 	MakeAdjcency(pNodes[B], pNodes[F]);
 	MakeAdjcency(pNodes[C], pNodes[B]);
@@ -80,6 +108,7 @@ void main()
 	MakeAdjcency(pNodes[G], pNodes[F]);
 	MakeAdjcency(pNodes[G], pNodes[H]);
 
-	Print(pNodes[A]);
+	//Print(pNodes[A]);
+	DFS(pNodes[A]);
 	printf("##### End Main ####");
 }
