@@ -161,6 +161,13 @@ void TraverBFS(SNode* pNode)
 	printf("\n");
 }
 
+void TraverDFS(SNode* pNode, bool bPrint = true)
+{
+	printf("DFS:");
+	TraverseDFS(pNode, bPrint);
+	printf("\n");
+}
+
 void TraverReset(SNode* pNodes[], int size)
 {
 	for (int i = 0; i < size; i++)
@@ -168,13 +175,6 @@ void TraverReset(SNode* pNodes[], int size)
 		pNodes[i]->bVisit = false;
 		pNodes[i]->itAdj = pNodes[i]->listAdj.begin();
 	}
-}
-
-void DFS(SNode* pNode, bool bPrint = true)
-{
-	printf("DFS:");
-	TraverseDFS(pNode, bPrint);
-	printf("\n");
 }
 
 enum E_NODE { A, B, C, D, E, F, G,H,MAX };
@@ -203,8 +203,8 @@ void main()
 	MakeAdjcency(pNodes[G], pNodes[F]);
 	MakeAdjcency(pNodes[G], pNodes[H]);
 
-	//Print(pNodes[A]);
-	//DFS(pNodes[A]);
+	TraverDFS(pNodes[A],true);
+	TraverReset(pNodes, MAX);
 	TraverBFS(pNodes[A]);
 	TraverReset(pNodes, MAX);
 	TraverDFSStack(pNodes[A]);
