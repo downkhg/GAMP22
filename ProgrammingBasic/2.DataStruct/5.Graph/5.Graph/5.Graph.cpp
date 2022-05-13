@@ -76,7 +76,7 @@ SNode* VisitStackDFS(SNode* pNode, stack<SNode*>& visit)
 			//cout << "Revisit:" << pNode->cData << endl;
 		}
 		//list<SNode*>::iterator it = pNode->itChild;
-		if (pNode->listAdj.size() > 0)
+		if (pNode->listAdj.size() > 0)//0
 		{
 			if (pNode->itAdj != pNode->listAdj.end())
 			{
@@ -114,6 +114,13 @@ void TraverDFSStack(SNode* pNode)
 	stack<SNode*> visit;
 	do
 	{
+		if (!pNode)//A //N
+		{
+			//cout << "Visit Complete! " << visit.top()->cData << endl;
+			visit.pop();
+			if (!visit.empty())
+				pNode = visit.top();
+		}
 		pNode = VisitStackDFS(pNode, visit);
 	} while (!visit.empty());
 	printf("\n");
@@ -145,9 +152,9 @@ void TraverBFS(SNode* pNode)
 	queue<SNode*> visit;
 	do
 	{
-		if (!visit.empty())//B
-			pNode = visit.front();//B
-		VisitBFS(pNode, visit);//B
+		if (!visit.empty())//A
+			pNode = visit.front();
+		VisitBFS(pNode, visit);//A
 
 		list<SNode*>::iterator it = pNode->listAdj.begin();
 		for (; it != pNode->listAdj.end(); it++)
