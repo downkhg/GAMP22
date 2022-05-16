@@ -28,10 +28,6 @@ void NamespaceTestMain()
 	B::PrintData();// B::Data:20
 }
 
-void HelloWorldMain()
-{
-	std::cout << "Hello World!!!\n" << std::endl;//\n
-}
 namespace Overloading {
 	//오버로딩: 함수의 이름은 같으나, 매개변수의 갯수나 타입이 다른 함수.
 	int Sum(int a, int b, int c) { return a + b + c; };
@@ -64,6 +60,11 @@ namespace DefaultParameter
 		cout << "3.Sum(1):" << Sum(10) << endl;
 		cout << "4.Sum(0):" << Sum() << endl;
 	}
+}
+
+void HelloWorldMain()
+{
+	std::cout << "Hello World!!!\n" << std::endl;//\n
 }
 
 void main()
