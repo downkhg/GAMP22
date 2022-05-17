@@ -54,29 +54,29 @@ public:
 	{
 		P, R, N, D
 	};
-	//생성자: 객체(변수)가 생성될때 호출 되는 함수. 
-	//생성자도 함수이므로 매개변수의 갯수나 타입이 다르면 오버로딩 가능하다.
-	CCar()//기본생성자: 기본멤버들을 기본값으로 초기화하는 생성자.
-	{
-		eGear = E_GEAR::N;
-		nSpeed = 0;
-		strColor = "none";
-		cout << "DefaultCar(" << eGear << "," << nSpeed << "," << strColor <<")" << endl;
-	}
-	CCar(string color)//매개변수를 통해 객체 내부의 값을 생성시 변경 가능한 생성자.
-	{
-		eGear = E_GEAR::N;
-		nSpeed = 0;
-		strColor = color;
-		cout << "PrameterCar(" << eGear << "," << nSpeed << "," << strColor << ")" << endl;
-	}
-	//CCar(string color = "gray")//디폴트매개변수를 활용하여 생성자 1개로 기본생성자도 대처함.
+	////생성자: 객체(변수)가 생성될때 호출 되는 함수. 
+	////생성자도 함수이므로 매개변수의 갯수나 타입이 다르면 오버로딩 가능하다.
+	//CCar()//기본생성자: 기본멤버들을 기본값으로 초기화하는 생성자.
+	//{
+	//	eGear = E_GEAR::N;
+	//	nSpeed = 0;
+	//	strColor = "none";
+	//	cout << "DefaultCar(" << eGear << "," << nSpeed << "," << strColor <<")" << endl;
+	//}
+	//CCar(string color)//매개변수를 통해 객체 내부의 값을 생성시 변경 가능한 생성자.
 	//{
 	//	eGear = E_GEAR::N;
 	//	nSpeed = 0;
 	//	strColor = color;
-	//	cout << "DefaultPrameterCar(" << eGear << "," << nSpeed << "," << strColor << ")" << endl;
+	//	cout << "PrameterCar(" << eGear << "," << nSpeed << "," << strColor << ")" << endl;
 	//}
+	CCar(string color = "gray")//디폴트매개변수를 활용하여 생성자 1개로 기본생성자도 대처함.
+	{
+		eGear = E_GEAR::N;
+		nSpeed = 0;
+		strColor = color;
+		cout << "DefaultPrameterCar(" << eGear << "," << nSpeed << "," << strColor << ")" << endl;
+	}
 	//멤버함수
 	void Init(string color)
 	{
