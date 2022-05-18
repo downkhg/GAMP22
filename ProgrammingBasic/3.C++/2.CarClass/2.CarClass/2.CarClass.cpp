@@ -75,7 +75,18 @@ public:
 		eGear = E_GEAR::N;
 		nSpeed = 0;
 		strColor = color;
-		cout << "DefaultPrameterCar(" << eGear << "," << nSpeed << "," << strColor << ")" << endl;
+		cout << "DefaultPrameterCar["<<this<<"](" << eGear << "," << nSpeed << "," << strColor << ")" << endl;
+	}
+	//소멸자: 객체(변수)가 소멸될때 호출되는 함수.
+	~CCar()
+	{
+		cout << "~Car[" << this << "](" << eGear << "," << nSpeed << "," << strColor << ")" << endl;
+	}
+	//복사생성자: 객체에서 복사가 될때 호출되는 함수
+	CCar(CCar& car)
+	{
+		*this = car;
+		cout << "CopyCar[" << this << "](" << eGear << "," << nSpeed << "," << strColor << ")" << endl;
 	}
 	//멤버함수
 	void Init(string color)
@@ -115,8 +126,83 @@ private:
 	E_GEAR eGear;//정의가 없으면 활용할수없으므로 멤버를 정의보다 아래로 내린다.
 };
 
+void SwapCarVar(CCar a, CCar b)
+{
+	cout << "SwapCarVar("<<&a<<","<< &b <<")" << endl;
+	CCar temp = b;
+	b = a;
+	a = temp;
+}
+
+void SwapCarRef(CCar& a, CCar& b)
+{
+	cout << "SwapCarRef(" << &a << "," << &b << ")" << endl;
+	CCar temp = b;
+	b = a;
+	a = temp;
+}
+
+void SwapCarPtr(CCar* a, CCar* b)
+{
+	cout << "SwapCarPtr(" << a << "," << b << ")" << endl;
+	CCar temp = *b;
+	*b = *a;
+	*a = temp;
+}
+
+void CarSwapTestMain()
+{
+	cout << "CarSwapTestMain Start()" << endl;
+	CCar cCarA("red");
+	CCar cCarB("blue");
+	cCarA.DeshBoard();
+	cCarB.DeshBoard();
+	cout << "SwapCarVar" << endl;
+	SwapCarVar(cCarA, cCarB);
+	cCarA.DeshBoard();
+	cCarB.DeshBoard();
+	cout << "SwapCarRef" << endl;
+	SwapCarRef(cCarA, cCarB);
+	cCarA.DeshBoard();
+	cCarB.DeshBoard();
+	cout << "SwapCarPtr" << endl;
+	SwapCarPtr(&cCarA, &cCarB);
+	cCarA.DeshBoard();
+	cCarB.DeshBoard();
+	cout << "CarSwapTestMain End()" << endl;
+}
+
+void StaticLocalCar()
+{
+	cout << "StaticLocalCar Start()" << endl;
+	static CCar cStaticCar("green");
+	cout << "StaticLocalCar End()" << endl;
+}
+
+void StaticCarTestMain()
+{
+	for (int i = 0; i < 3; i++)
+		StaticLocalCar();
+}
+
+void DynamicAllocateMain()
+{
+	cout << "DynamicAllocateMain 1()" << endl;
+	CCar* pCar = NULL;
+	cout << "DynamicAllocateMain 2()" << endl;
+	pCar = new CCar();
+	delete pCar;
+	cout << "DynamicAllocateMain 3()" << endl;
+	pCar = new CCar[3];
+	delete[] pCar;
+	cout << "DynamicAllocateMain 4()" << endl;
+}
+
+CCar g_cCar;
+
 void ClassCarMain()
 {
+	cout << "ClassCarMain Start()" << endl;
 	//디폴트매개변수의 경우 시나리오
 	CCar cCar; //자동차의 칠없이 생산후
 	cCar.Init("red"); //색상을 지정된 색상으로 변경한다.
@@ -139,6 +225,7 @@ void ClassCarMain()
 	cCarA.DeshBoard();
 	cCarA.Break();
 	cCarA.DeshBoard();
+	cout << "ClassCarMain End()" << endl;
 }
 //※자동차가 생성되는 시나리오로 글로 정리한것이다.
 //  클래스를 활용가능하면 해보고, 안되면 기초문법 멤버함수/변수, private/public의 문법적인 내용만 이해한다.
@@ -171,6 +258,11 @@ void StructCarMain()
 
 void main()
 {
-	//StructCarMain();
-	ClassCarMain();
+	cout << "main Start()" << endl;
+	//StructCarMain(); //구조체 자동차 구현
+	//ClassCarMain(); //클래스 자동차 구현
+	//CarSwapTestMain(); //자동차클래스 스왑하기
+	//StaticCarTestMain(); //정적지역변수 객체의 생성 및 소멸
+	DynamicAllocateMain(); //동적할당한 객체의 생성 및 소멸
+	cout << "main End()" << endl;
 }
