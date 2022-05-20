@@ -15,6 +15,29 @@ void STDStringMain()
 	cout << "Msg2[" << &strMsg2 << "/" << (int)strMsg2.c_str() << "]:" << strMsg2.c_str() << endl;
 	cout << "CopyMsg[" << &strCopyMsg << "/" << (int)strCopyMsg.c_str() << "]:" << strCopyMsg.c_str() << endl;
 }
+//해당 함수를 mockup문자열클래스에서도 작동하도록 만들기.
+void STDStringFuncHangManGame()
+{
+	string strQ = "____";
+	string strA = "Game";
+	char cInput;
+	
+	do
+	{
+		cout << "Q:" << strQ << endl;
+		cin >> cInput;
+		int idx = strA.find(cInput, 0);
+		cout << "find["<<cInput<<"]:" << idx << endl;
+		if (idx == -1)
+			cout << cInput << "is not found!" << endl;
+		else
+			strQ.replace(idx, 1, 1, cInput);
+			//strQ[idx] = cInput;
+
+	} while (!strA._Equal(strQ));
+
+	cout << "The End" << endl;
+}
 
 namespace Mockup
 {
@@ -62,9 +85,33 @@ void MockupStringMain()
 	cout << "CopyMsg[" << &strCopyMsg << "/" << (int)strCopyMsg.c_str() << "]:" << strCopyMsg.c_str() << endl;
 }
 
+//void MockupStringFuncHangManGame()
+//{
+//	Mockup::string strQ = "____";
+//	Mockup::string strA = "Game";
+//	char cInput;
+//
+//	do
+//	{
+//		cout << "Q:" << strQ << endl;
+//		cin >> cInput;
+//		int idx = strA.find(cInput, 0);
+//		cout << "find[" << cInput << "]:" << idx << endl;
+//		if (idx == -1)
+//			cout << cInput << "is not found!" << endl;
+//		else
+//			strQ.replace(idx, 1, 1, cInput);
+//		//strQ[idx] = cInput;
+//
+//	} while (!strA._Equal(strQ));
+//
+//	cout << "The End" << endl;
+//}
+
 
 void main()
 {
 	//STDStringMain();
-	MockupStringMain();
+	//MockupStringMain();
+	STDHangManGame();
 }
