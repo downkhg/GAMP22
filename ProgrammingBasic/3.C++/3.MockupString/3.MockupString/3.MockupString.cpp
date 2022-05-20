@@ -36,9 +36,11 @@ namespace Mockup
 			delete m_pStr;
 		}
 
-		string(string& text)
+		string(string& str)
 		{
-			*this = text;
+			int nSize = strlen(str.c_str());
+			m_pStr = new char[nSize + 1];
+			strcpy_s(m_pStr, nSize + 1, str.c_str());
 			cout << "copystring[" << this << "/" << (int)m_pStr << "]" << m_pStr << endl;
 		}
 
