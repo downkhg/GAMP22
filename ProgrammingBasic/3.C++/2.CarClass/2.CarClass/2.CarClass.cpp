@@ -9,7 +9,7 @@ using namespace std;
 struct SCar
 {
 	string strColor;
-	int nSpeed;
+	int nSpeed = 0;
 	enum E_GEAR
 	{
 		P, R, N, D
@@ -75,17 +75,20 @@ public:
 		eGear = E_GEAR::N;
 		nSpeed = 0;
 		strColor = color;
+		nCount++;
 		cout << "DefaultPrameterCar["<<this<<"](" << eGear << "," << nSpeed << "," << strColor << ")" << endl;
 	}
 	//소멸자: 객체(변수)가 소멸될때 호출되는 함수.
 	~CCar()
 	{
+		nCount--;
 		cout << "~Car[" << this << "](" << eGear << "," << nSpeed << "," << strColor << ")" << endl;
 	}
 	//복사생성자: 객체에서 복사가 될때 호출되는 함수 -> 매개변수와 객체: 객체 생성자가 불리지않았는데 소멸자가 호출됨.
 	CCar(CCar& car)
 	{
 		*this = car;
+		nCount++;
 		cout << "CopyCar[" << this << "](" << eGear << "," << nSpeed << "," << strColor << ")" << endl;
 	}
 	//멤버함수
@@ -124,6 +127,14 @@ private:
 	string strColor;
 	int nSpeed;
 	E_GEAR eGear;//정의가 없으면 활용할수없으므로 멤버를 정의보다 아래로 내린다.
+	
+	static int nCount; //정적멤버변수: 모든 객체가 공유하는 멤버 - 자동차의 생산 대 수
+public:
+	static int GetCount()  //정적멤버함수: 객체 생성전에 접근 가능한 함수.
+	{ 
+		//nSpeed = 0; //일반멤버변수는 객체가 생성되지않았을수있으므로, 정적멤버함수에서는 호출이 불가능하다.
+		return nCount; 
+	}
 };
 
 void SwapCarVar(CCar a, CCar b)
@@ -189,16 +200,20 @@ void DynamicAllocateMain()
 {
 	cout << "DynamicAllocateMain 1()" << endl;
 	CCar* pCar = NULL;
-	cout << "DynamicAllocateMain 2()" << endl;
+	//c++에서는 객체와 인스턴스를 구별 할 수 없음.(참고: 다른객체지향언어에서는 클래스는 반드시 참조된다. 참조하는 대상을 객체, 참조되는 메모리를 인스턴스라 부름.)
+	//cout << "DynamicAllocateMain 2("<< pCar->GetCount() <<")" << endl; //다음과 같은 문법은 사용은 가능하나 위험성이 있다. (객체가 생성 전에 호출됨)
+	cout << "DynamicAllocateMain 2(" << CCar::GetCount() << ")" << endl; //객체가 생성전에는 클래스밖에 알수없으므로, 클래스를 통해 접근해야한다.
+	//다른객체지향언어의 개념에서 보면 포인터는 객체, 동적할당된 메모리는 인스턴스.
 	pCar = new CCar();
 	delete pCar;
-	cout << "DynamicAllocateMain 3()" << endl;
+	cout << "DynamicAllocateMain 3(" << CCar::GetCount() << ")" << endl;
 	pCar = new CCar[3];
 	delete[] pCar;
-	cout << "DynamicAllocateMain 4()" << endl;
+	cout << "DynamicAllocateMain 4(" << CCar::GetCount() << ")" << endl;
 }
 
 CCar g_cCar;
+int CCar::nCount = 0; //정적지역변수는 전역변수의 특성을 응용하여, 객체가 모두 같은 변수를 가지도록한다.
 
 void ClassCarMain()
 {
