@@ -203,7 +203,7 @@ void DynamicAllocateMain()
 	//c++에서는 객체와 인스턴스를 구별 할 수 없음.(참고: 다른객체지향언어에서는 클래스는 반드시 참조된다. 참조하는 대상을 객체, 참조되는 메모리를 인스턴스라 부름.)
 	//cout << "DynamicAllocateMain 2("<< pCar->GetCount() <<")" << endl; //다음과 같은 문법은 사용은 가능하나 위험성이 있다. (객체가 생성 전에 호출됨)
 	cout << "DynamicAllocateMain 2(" << CCar::GetCount() << ")" << endl; //객체가 생성전에는 클래스밖에 알수없으므로, 클래스를 통해 접근해야한다.
-	//다른객체지향언어의 개념에서 보면 포인터는 객체, 동적할당된 메모리는 인스턴스.
+	//다른객체지향언어의 개념에서 보면 포인터는 객체 (추적하는 독수리의 타겟팅 대상), 동적할당된 메모리는 인스턴스(독수리가 추적하는 플레이어).
 	pCar = new CCar();
 	delete pCar;
 	cout << "DynamicAllocateMain 3(" << CCar::GetCount() << ")" << endl;
