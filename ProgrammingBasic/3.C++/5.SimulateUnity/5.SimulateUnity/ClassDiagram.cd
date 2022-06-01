@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Component">
+    <Position X="7.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQgAAAAACAAAAAAAAAAAQAAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>5.SimulateUnity.cpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameObject">
+    <Position X="10.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAIAAAAAAAABAAAAAAAAAAAAIAAAAIARAA=</HashCode>
+      <FileName>5.SimulateUnity.cpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TargetTracker">
+    <Position X="6.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAQCAAAAACEAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>5.SimulateUnity.cpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Player">
+    <Position X="8.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAQAAAAgAAAAAAAABAAAAAAAAAAQAAABA=</HashCode>
+      <FileName>5.SimulateUnity.cpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="맑은 고딕" Size="9" />
+</ClassDiagram>

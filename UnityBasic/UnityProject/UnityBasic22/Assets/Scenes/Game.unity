@@ -4738,7 +4738,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 5541526922689951000}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1384764307
+--- !u!114 &1384764302
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4747,12 +4747,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1384764301}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0854da7bcada471448110c65ceb8503a, type: 3}
+  m_Script: {fileID: 11500000, guid: e8727a3802751e34fb4e32551e46a075, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isUse: 0
-  Time: 1
-  spriteRenderer: {fileID: 0}
+  nAttack: 0
+  nHP: 0
+  nExp: 0
+  nLv: 1
+  nHPMax: 0
+  guiHPBar: {fileID: 0}
+  guiExpBar: {fileID: 0}
+  idx: 0
 --- !u!1 &1393776501
 GameObject:
   m_ObjectHideFlags: 0

@@ -21,7 +21,7 @@ public:
 class GameObject
 {
 	string m_strName;
-	list<Component*> m_listScrits;
+	list<Component*> m_listScrits;//has-a:
 public:
 	GameObject(string name)
 	{
@@ -52,8 +52,8 @@ public:
 	//Component* GetComponent(const char* typeidname){ return *find(m_listScrits.begin(), m_listScrits.end(), typeidname); }
 	string GetName(){ return m_strName; }
 };
-
-class TargetTracker : public Component
+//다형성을 이용하여 TargetTracker과 Player클래스를 같은 자료구조에서 관리함. 부모클래스(Component)를 상속받아야함.
+class TargetTracker : public Component//상속
 {
 	GameObject* m_pTarget = NULL;
 public:
@@ -115,6 +115,11 @@ void SimulateUnityTestMain()
 
 	listGameObjects[0] = &objPlayer;
 	listGameObjects[1] = &objEagle;
+	//java나 c#에서는 클래스는 반드시 동적할당된다.
+	//할당된 메모리는 가비지컬렉션이 자동으로 수집 관리한다.(c++ 스마트포인터)
+	//객체: 참조자, 인스턴스: 동적할당 된 메모리
+	//listGameObjects[2] = new GameObject("Opossum");
+	//delete listGameObjects[2];
 
 	cout << "###### " << objPlayer.GetName() <<".Add Componet ######"<< endl;
 	objPlayer.AddComponent(new Player());
