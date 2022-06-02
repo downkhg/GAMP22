@@ -79,7 +79,8 @@ namespace Inheritance
 	void CarMain()
 	{
 		Vihicle cVihvle;
-		Bike cBike;
+		//Bike cBike;
+		Vihicle cBike;
 		AutoBike cAutoBike;
 		Track cTrack;
 		Bus cBus;
@@ -216,6 +217,7 @@ namespace DiamondInheritance
 	public:
 		Eneginer(int engine = 300)
 		{
+			//m_nSpeed = 0; //protected멤버는 자식객체에서만 접근가능하다.
 			cout << "Eneginer[" << this << "]:" << sizeof(*this) << endl;
 			m_nEngine = engine;
 		}
@@ -321,9 +323,9 @@ public:
 		m_fHertz--;
 	}
 };
+//is-a: 상속을 이용하면 코드를 거이 작성하지않고 만들수있다.
 namespace IsA
 {
-	//is-a: 상속을 이용하면 코드를 거이 작성하지않고 만들수있다.
 	class Radio : public Spiker, public Antena
 	{
 
@@ -332,17 +334,34 @@ namespace IsA
 	void RadioMain()
 	{
 		Radio cRadio; //라디오를 만들수있다. 그러나 내부부품은 재활용할수없다.
+
+		cRadio.SwitchOn();
+		cRadio.VolumeUp();
+		cRadio.HertzDown();
+		cRadio.SwitchOff();
 	}
 }
+//has-a: 각 객체를 감싸는 함수를 만들어한다.
+//만들때 내부의 부품을 더 좋은 부품을 사용할수있다.
+//(현실에 라디오라면 직접 인터페이스를 내부에 보드에 연결하므로 여기에 해당될수도 있다.)
 namespace HasA
 {
-	//has-a: 각 객체를 감싸는 함수를 만들어한다.
-	//만들때 내부의 부품을 더 좋은 부품을 사용할수있다.
-	//(현실에 라디오라면 직접 인터페이스를 내부에 보드에 연결하므로 여기에 해당될수도 있다.)
+	//다음과같이 has-a관계도 성립하지만 상속과 차이점이 거이없다.
+	/*class Radio
+	{
+		Spiker m_cSpiker;
+		Antena m_cAntena;
+	};*/
+
 	class Radio
 	{
 		Spiker* m_pSpiker;
 		Antena* m_pAntena;
+	public:
+		void SetSpiker(Spiker* pSpiker){ m_pSpiker = pSpiker; }
+		Spiker* GetSpiker(){ return m_pSpiker; }
+		void SetAntena(Antena* pAntena) { m_pAntena = pAntena; }
+		Antena* GetAntena() { return m_pAntena; }
 	public:
 		Radio(Spiker* spiker, Antena* antena)
 		{
@@ -382,6 +401,7 @@ namespace HasA
 
 		//라디오를 조립할때 부품을 선택할수있고, 재활용이 가능하다.
 		Radio cRadio(pSpiker, pAntena);
+		cRadio.GetSpiker()->SwitchOn();
 		cRadio.SwitchOn();
 		cRadio.VolumeUp();
 		cRadio.HertzDown();
@@ -395,9 +415,9 @@ namespace HasA
 void main()
 {
 	//ShapeMain();
-	//Inheritance::CarMain();
+	Inheritance::CarMain();
 	//HierarchyInheritance::CarMain();
 	//DiamondInheritance::CarMain();
-	HasA::RadioMain();
-	IsA::RadioMain();
+	//HasA::RadioMain();
+	//IsA::RadioMain();
 }
