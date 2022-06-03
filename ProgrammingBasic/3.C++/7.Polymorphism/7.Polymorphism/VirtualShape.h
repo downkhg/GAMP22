@@ -127,7 +127,7 @@ namespace Virtual
 		for (it = listShapes.begin(); it != listShapes.end(); it++)
 		{
 			Shape* pShape = *it;
-			pShape->Draw();
+			pShape->Draw();//해당위치에 브레이킹 포인트를 걸고 pShape를 확인하면, v-ptr과 저장된 함수의 종류를 볼수있다.
 		}
 
 		it = listShapes.begin();

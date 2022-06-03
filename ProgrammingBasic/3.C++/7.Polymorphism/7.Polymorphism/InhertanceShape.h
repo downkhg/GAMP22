@@ -55,7 +55,7 @@ namespace Inheritance
 		}
 		void Draw()
 		{
-			cout << "Circle[" << this << "]::Draw()" << endl;
+			cout << "Circle[" << this << "]::Draw(" << &Shape::Draw <<")" << endl;
 			vPos.Print("Pos");
 			cout << "Rad:" << fRadius << endl;
 		}
@@ -70,7 +70,7 @@ namespace Inheritance
 		~TriAngle() { cout << "~TriAngle[" << this << "]" << endl; };
 		void Draw()
 		{
-			cout << "RectAangle[" << this << "]::Draw()" << endl;
+			cout << "RectAangle[" << this << "]::Draw("<< &TriAngle::Draw <<")" << endl;
 			vA.Print("A:");
 			vB.Print("B:");
 			vC.Print("C:");
@@ -93,7 +93,7 @@ namespace Inheritance
 		}
 		void Draw()
 		{
-			cout << "RectAangle[" << this << "]::Draw()" << endl;
+			cout << "RectAangle[" << this << "]::Draw(" << &RectAangle::Draw << ")" << endl;
 			vTL.Print("TopLeft:");
 			vBR.Print("BottomRight:");
 		}
@@ -124,7 +124,7 @@ namespace Inheritance
 		for (it = listShapes.begin(); it != listShapes.end(); it++)
 		{
 			Shape* pShape = *it;
-			pShape->Draw();
+			pShape->Draw();//해당위치에 브레이킹 포인트를 걸고 pShape를 확인해도 v-ptr은 나오지않는다.
 		}
 
 		it = listShapes.begin();
