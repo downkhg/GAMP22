@@ -6,7 +6,7 @@ using namespace std;
 
 class Component
 {
-	virtual void Start() = 0;
+	virtual void Start() = 0; //순수가상함수.
 	virtual void Update() = 0;
 public:
 	Component() { cout << typeid(*this).name() << "[" << this << "]" << endl; }
@@ -132,8 +132,10 @@ void SimulateUnityTestMain()
 
 	cout << "###### "<< objEagle.GetName() <<".Target(" << objPlayer.GetName() <<") ######" << endl;
 	TargetTracker* pTargetTarcker = dynamic_cast<TargetTracker*> (objEagle.GetComponent(typeid(TargetTracker).name()));
-
-	pTargetTarcker->SetTarget(&objPlayer);
+	if (pTargetTarcker)
+		pTargetTarcker->SetTarget(&objPlayer);
+	else
+		cout <<"!"<< typeid(objEagle).name() << endl;
 	cout << "###### SimulateUnityTestMain() End ######" << endl;
 }
 
