@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Component">
-    <Position X="7.25" Y="1.5" Width="1.5" />
+    <Position X="7.25" Y="1.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQgAAAAACAAAAAAAAAAAQAAAAAAAAAAAABAAAAAAAA=</HashCode>
       <FileName>5.SimulateUnity.cpp</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="GameObject">
-    <Position X="10.75" Y="1.5" Width="1.5" />
+    <Position X="10.75" Y="1.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ABAAAAAAAAAIAAAAAAAABAAAAAAAAAAAAIAAAAIARAA=</HashCode>
       <FileName>5.SimulateUnity.cpp</FileName>
