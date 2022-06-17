@@ -160,6 +160,14 @@ HCURSOR CRPGStatusDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+void SyncBonusNState(int nBonus, int nState, CEdit& cEdit, CStatic& cStatc)
+{
+	CString strString;
+	strString.Format(_T("%d"), nState);
+	cEdit.SetWindowTextW(strString);
+	strString.Format(_T("보너스포인트: %d"), nBonus);
+	cStatc.SetWindowTextW(strString);
+}
 
 void CRPGStatusDlg::OnDeltaposSpinMp(NMHDR* pNMHDR, LRESULT* pResult)
 {
@@ -169,23 +177,24 @@ void CRPGStatusDlg::OnDeltaposSpinMp(NMHDR* pNMHDR, LRESULT* pResult)
 	{
 		m_nBonus--;
 		m_nMP++;
-		CString strString;
+		SyncBonusNState(m_nBonus, m_nMP, m_editMP, m_staticBonus);
+		/*CString strString;
 		strString.Format(_T("%d"), m_nMP);
 		m_editMP.SetWindowTextW(strString);
 		strString.Format(_T("보너스포인트: %d"), m_nBonus);
-		m_staticBonus.SetWindowTextW(strString);
+		m_staticBonus.SetWindowTextW(strString);*/
 		TRACE("Click up\n");
-		
 	}
 	else
 	{
 		m_nMP--;
 		m_nBonus++;
-		CString strString;
+		SyncBonusNState(m_nBonus, m_nMP, m_editMP, m_staticBonus);
+		/*CString strString;
 		strString.Format(_T("%d"), m_nMP);
 		m_editMP.SetWindowTextW(strString);
 		strString.Format(_T("보너스포인트: %d"), m_nBonus);
-		m_staticBonus.SetWindowTextW(strString);
+		m_staticBonus.SetWindowTextW(strString);*/
 		TRACE("Click donw\n");
 	}
 
@@ -197,5 +206,7 @@ void CRPGStatusDlg::OnDeltaposSpinHp(NMHDR* pNMHDR, LRESULT* pResult)
 {
 	LPNMUPDOWN pNMUpDown = reinterpret_cast<LPNMUPDOWN>(pNMHDR);
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+
+
 	*pResult = 0;
 }
