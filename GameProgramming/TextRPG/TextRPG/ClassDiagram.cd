@@ -3,9 +3,30 @@
   <Class Name="Player">
     <Position X="7" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAABAAIAgAAAAAAAIAEQgAAAAAACYAAQAI=</HashCode>
+      <HashCode>BABAAAAAAAAABQAAEEIAAAEAAIAEAAAACAAACQAAQAA=</HashCode>
       <FileName>TextRPG.cpp</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="Item">
+    <Position X="1.5" Y="1.5" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="Item::E_ITEM_KIND" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>TextRPG.cpp</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAAAAAkAAAAAogAAAAAACAAAAA=</HashCode>
+      <FileName>TextRPG.cpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="Status">
+    <Position X="4" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAEAgAgAAAASAAAAAEAAAAAAAgAABAAAA=</HashCode>
+      <FileName>TextRPG.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
   <Font Name="맑은 고딕" Size="9" />
 </ClassDiagram>

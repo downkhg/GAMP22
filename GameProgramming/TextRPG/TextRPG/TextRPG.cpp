@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <vector>
 using namespace std;
 
 struct Status {
@@ -55,12 +56,48 @@ struct Status {
 	}
 };
 
+class Item {
+public:
+	enum E_ITEM_KIND { WEAPON, ARMOR, ACC, ETC };
+	E_ITEM_KIND eItemKind;
+	string strName;
+	string strComment;
+	Status sFuction;
+	int nGold;
+	Item(E_ITEM_KIND kind, string name, string comment, Status status, int gold)
+	{
+		Set(kind, name, comment, status, gold);
+	}
+	void Set(E_ITEM_KIND kind, string name, string comment, Status status, int gold)
+	{
+		eItemKind = kind;
+		strName = name;
+		strComment = comment;
+		sFuction = status;
+		nGold = gold;
+	}
+};
+
 class Player {
 	string m_strName;
 	Status m_sStatus;
 	int m_nLv;
 	int m_nExp;
+	vector<Item> m_listIventory;
 public:
+	void SetIventory(Item item)
+	{
+		m_listIventory.push_back(item);
+	}
+	Item GetIventoryIdx(int idx)
+	{
+		return m_listIventory[idx];
+	}
+	void DeleteIventory(int idx)
+	{
+		m_listIventory.erase(m_listIventory.begin() + idx);
+	}
+
 	Player(const char* strName = "NONE", int _hp = 100, int _mp = 100, int _str = 20, int  _int = 10, int _def = 10, int _exp = 0)
 	{
 		Set(strName, _hp, _mp, _str, _int, _def, _exp);
@@ -122,6 +159,8 @@ void main()
 	//공격? 주인공이 게임에서 상대를 쓰러뜨리려고하는 행위
 	Player cPlayer("Player");
 	Player cMonster("Monster");
+
+	cMonster.SetIventory(Item(Item::ETC, "HPPotion", "Hp Recover", Status(100, 0, 0, 0, 0), 100));
 
 	while (!cPlayer.Dead() && !cMonster.Dead())//누군가가 죽으면 끝난다. -> 둘중하나라도 살아있으면 
 	{
