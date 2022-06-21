@@ -126,6 +126,11 @@ public:
 		this->m_nExp = taget.m_nLv * 100 + taget.m_nExp;
 	}
 
+	void StillItem(Player& target, int idx = 0)
+	{
+		SetIventory(target.m_listIventory[idx]);
+	}
+
 	bool LvUp()
 	{
 		//만약 경험치가 100 이상되면, 레벨+1, 모든 능력치 10증가, 경험치 초기화.
@@ -189,7 +194,8 @@ void main()
 			cPlayer.StillExp(cMonster);
 			if (cPlayer.LvUp())
 				cout << "LvUp!!!" << endl;
-			cPlayer.Show();
+			cPlayer.StillItem(cMonster);
+;			cPlayer.Show();
 		}
 	}
 }
