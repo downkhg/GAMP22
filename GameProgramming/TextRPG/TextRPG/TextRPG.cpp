@@ -85,14 +85,14 @@ class Player {
 	int m_nExp = 0;
 	int m_nGold;
 
-	vector<Item> m_listIventory;
-	vector<Item> m_listEqument;
+	vector<Item*> m_listIventory;
+	vector<Item*> m_listEqument;
 public:
-	void SetIventory(Item item)
+	void SetIventory(Item* item)
 	{
 		m_listIventory.push_back(item);
 	}
-	Item GetIventoryIdx(int idx)
+	Item* GetIventoryIdx(int idx)
 	{
 		return m_listIventory[idx];
 	}
@@ -103,14 +103,14 @@ public:
 
 	bool UseItem(int idx)
 	{
-		Item cItem = GetIventoryIdx(idx);
+		Item* pItem = GetIventoryIdx(idx);
 
-		if (cItem.eItemKind == Item::E_ITEM_KIND::THROW)
+		if (pItem->eItemKind == Item::E_ITEM_KIND::THROW)
 			return false;
 
-		int nIdx = cItem.eItemKind;
-		m_listEqument[nIdx] = cItem;
-		m_sStatus = m_sStatus + cItem.sFuction;
+		int nIdx = pItem->eItemKind;
+		m_listEqument[nIdx] = pItem;
+		m_sStatus = m_sStatus + pItem->sFuction;
 		DeleteIventory(idx);
 
 		return true;
@@ -118,18 +118,18 @@ public:
 
 	void ReleaseEqument(int idx)
 	{
-		Item cItem = m_listEqument[idx];
-		m_sStatus = m_sStatus - cItem.sFuction;
-		SetIventory(cItem);
+		Item* pItem = m_listEqument[idx];
+		m_sStatus = m_sStatus - pItem->sFuction;
+		SetIventory(pItem);
 	}
 
 	bool Buy(Player& target, int idx)
 	{
-		Item item = target.GetIventoryIdx(idx);
-		if (item.nGold <= m_nGold)
+		Item* pItem = target.GetIventoryIdx(idx);
+		if (pItem->nGold <= m_nGold)
 		{
-			SetIventory(item);
-			m_nGold -= item.nGold;
+			SetIventory(pItem);
+			m_nGold -= pItem->nGold;
 			return true;
 		}
 		return false;
@@ -137,9 +137,9 @@ public:
 
 	void Sell(int idx)
 	{
-		Item item = GetIventoryIdx(idx);
+		Item* pItem = GetIventoryIdx(idx);
 		DeleteIventory(idx);
-		m_nGold += item.nGold;
+		m_nGold += pItem->nGold;
 	}
 
 	Player(const char* strName = "NONE", int _gold = 0, int _hp = 100, int _mp = 100, int _str = 20, int  _int = 10, int _def = 10, int _exp = 0, int equmentCount = 3)
@@ -203,10 +203,14 @@ public:
 		m_sStatus.Show();
 		cout << "######### Inventory ######### " << endl;
 		for (int i = 0; i < m_listIventory.size(); i++)
-			cout << i << ":" << m_listIventory[i].strName << endl;
+			if(m_listIventory[i] != nullptr)
+				cout << i << ":" << m_listIventory[i]->strName << endl;
 		cout << "######### Equment ######### " << endl;
 		for (int i = 0; i < m_listEqument.size(); i++)
-			cout << i << ":" << m_listEqument[i].strName << endl;
+			if (m_listEqument[i] != nullptr)
+				cout << i << ":" << m_listEqument[i]->strName << endl;
+			else
+				cout << i << ":" << "null" << endl;
 		cout << "######### Gold:" << m_nGold << " ######### " << endl;
 	}
 };
@@ -216,6 +220,11 @@ class ItemManager {
 public:
 	enum E_ITEM_LIST { WOOD_SOWRD, BONE_SOWRD, WOOD_ARMOR, BONE_AMROR, WOOD_RING, BONE_RING, HP_POTION, MP_POTION, STONE, BOOM };
 	ItemManager()
+	{
+		
+	}
+
+	void Init()
 	{
 		m_listItems.resize(10);
 		m_listItems[0] = Item(Item::E_ITEM_KIND::WEAPON, "목검", "데미지 증가", Status(0, 0, 10), 100);
@@ -229,9 +238,68 @@ public:
 		m_listItems[8] = Item(Item::E_ITEM_KIND::THROW, "짱돌", "단일 적 대미지", Status(0, 0, 50), 100);
 		m_listItems[9] = Item(Item::E_ITEM_KIND::THROW, "목검", "다수 적 대미지", Status(0, 0, 50), 100);
 	}
-	Item GetItem(int idx)
+
+	void SaveFile()
 	{
-		return m_listItems[idx];
+		FILE* pFile = fopen("itemdatabase.csv", "wt");
+		if (pFile)
+		{
+			fprintf(pFile, "%d\n", m_listItems.size());
+			vector<Item>::iterator it = m_listItems.begin();
+			for (; it != m_listItems.end(); it++)
+			{
+				Item sItem = *(it);
+				fprintf(pFile, "%d,%s,%s,%d,%d,%d,%d,%d\n", sItem.eItemKind, sItem.strName.c_str(), sItem.strComment.c_str(), sItem.nGold,
+					sItem.sFuction.nHP, sItem.sFuction.nMP, sItem.sFuction.nStr, sItem.sFuction.nInt, sItem.sFuction.nDef);
+			}
+			fclose(pFile);
+		}
+		else
+			cout << " Save Failed!" << endl;
+	}
+
+	void LoadFile()
+	{
+		FILE* pFile = fopen("itemdatabase.csv", "rt");
+		if (pFile)
+		{
+			int nSize;
+			fscanf(pFile, "%d", &nSize);
+
+			for (int i = 0; i < nSize; i++)
+			{
+				char strTemp[1024];
+				fscanf(pFile, "%s\n", strTemp);
+				cout << strTemp << endl;
+				char  arrStrs[8][128];
+				char* strTemps = strtok(strTemp, ",");
+				int idx = 0;
+				while (strTemps != NULL)
+				{
+					//memcpy(arrStrs[idx], strTemps, 128);
+					strcpy(arrStrs[idx], strTemps);
+					cout << arrStrs[idx] << ",";
+					//cout << strTemps << ",";
+					strTemps = strtok(NULL, ",");
+					idx++;
+				}
+				cout << endl;
+				string name = arrStrs[1];
+				string info = arrStrs[2];
+				Item sItem((Item::E_ITEM_KIND)atoi(arrStrs[0]), name, info,
+					Status(atoi(arrStrs[4]), atoi(arrStrs[5]), atoi(arrStrs[6]), atoi(arrStrs[7])),
+					atoi(arrStrs[3]));
+				m_listItems.push_back(sItem);
+			}
+			fclose(pFile);
+		}
+		else
+			cout << " Save Failed!" << endl;
+	}
+
+	Item* GetItem(int idx)
+	{
+		return &m_listItems[idx];
 	}
 };
 
@@ -242,6 +310,11 @@ void main()
 	Player cPlayer("Player",100000);
 	Player cMonster("Monster");
 	ItemManager cItemManager;
+
+	//cItemManager.Init();
+	//cItemManager.SaveFile();
+	cItemManager.LoadFile();
+
 	Player cShop;
 
 	cShop.SetIventory(cItemManager.GetItem(ItemManager::E_ITEM_LIST::WOOD_SOWRD));
@@ -256,8 +329,8 @@ void main()
 	cShop.SetIventory(cItemManager.GetItem(ItemManager::E_ITEM_LIST::BOOM));
 
 	//cMonster.SetIventory(Item(Item::ETC, "HPPotion", "Hp Recover", Status(100, 0, 0, 0, 0), 100));
-	Item cHPPotion = cItemManager.GetItem(ItemManager::E_ITEM_LIST::HP_POTION);
-	cMonster.SetIventory(cHPPotion);
+	Item* pHPPotion = cItemManager.GetItem(ItemManager::E_ITEM_LIST::HP_POTION);
+	cMonster.SetIventory(pHPPotion);
 
 	cPlayer.SetIventory(cItemManager.GetItem(ItemManager::E_ITEM_LIST::BONE_AMROR));
 
