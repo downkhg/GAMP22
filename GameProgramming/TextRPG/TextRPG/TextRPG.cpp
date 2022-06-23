@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+
 using namespace std;
 
 struct Status {
@@ -227,16 +228,16 @@ public:
 	void Init()
 	{
 		m_listItems.resize(10);
-		m_listItems[0] = Item(Item::E_ITEM_KIND::WEAPON, "목검", "데미지 증가", Status(0, 0, 10), 100);
-		m_listItems[1] = Item(Item::E_ITEM_KIND::WEAPON, "본소드", "데미지 증가", Status(0, 0, 20), 100);
-		m_listItems[2] = Item(Item::E_ITEM_KIND::ARMOR, "나무갑옷", "방어력 증가", Status(0, 0, 0, 10), 100);
-		m_listItems[3] = Item(Item::E_ITEM_KIND::ARMOR, "본아머", "방어력 증가", Status(0, 0, 20), 100);
-		m_listItems[4] = Item(Item::E_ITEM_KIND::ACC, "나무반지", "체력 증가", Status(10), 100);
-		m_listItems[5] = Item(Item::E_ITEM_KIND::ACC, "해골반지", "체력 증가", Status(20), 100);
+		m_listItems[0] = Item(Item::E_ITEM_KIND::WEAPON, "목검", "데미지_증가", Status(0, 0, 10), 100);
+		m_listItems[1] = Item(Item::E_ITEM_KIND::WEAPON, "본소드", "데미지_증가", Status(0, 0, 20), 100);
+		m_listItems[2] = Item(Item::E_ITEM_KIND::ARMOR, "나무갑옷", "방어력_증가", Status(0, 0, 0, 10), 100);
+		m_listItems[3] = Item(Item::E_ITEM_KIND::ARMOR, "본아머", "방어력_증가", Status(0, 0, 20), 100);
+		m_listItems[4] = Item(Item::E_ITEM_KIND::ACC, "나무반지", "체력_증가", Status(10), 100);
+		m_listItems[5] = Item(Item::E_ITEM_KIND::ACC, "해골반지", "체력_증가", Status(20), 100);
 		m_listItems[6] = Item(Item::E_ITEM_KIND::POTION, "힐링포션", "HP회복", Status(100), 100);
 		m_listItems[7] = Item(Item::E_ITEM_KIND::POTION, "마나포션", "MP회복", Status(0, 100), 100);
-		m_listItems[8] = Item(Item::E_ITEM_KIND::THROW, "짱돌", "단일 적 대미지", Status(0, 0, 50), 100);
-		m_listItems[9] = Item(Item::E_ITEM_KIND::THROW, "목검", "다수 적 대미지", Status(0, 0, 50), 100);
+		m_listItems[8] = Item(Item::E_ITEM_KIND::THROW, "짱돌", "단일_적_대미지", Status(0, 0, 50), 100);
+		m_listItems[9] = Item(Item::E_ITEM_KIND::THROW, "목검", "다수_적_대미지", Status(0, 0, 50), 100);
 		cout << "Init("<< m_listItems.size() <<")" << endl;
 	}
 
@@ -258,7 +259,7 @@ public:
 			for (; it != m_listItems.end(); it++)
 			{
 				Item sItem = *(it);
-				fprintf(pFile, "%d,%s,%s,%d,%d,%d,%d,%d\n", sItem.eItemKind, sItem.strName.c_str(), sItem.strComment.c_str(), sItem.nGold,
+				fprintf(pFile, "%d,%s,%s,%d,%d,%d,%d,%d,%d\n", sItem.eItemKind, sItem.strName.c_str(), sItem.strComment.c_str(), sItem.nGold,
 					sItem.sFuction.nHP, sItem.sFuction.nMP, sItem.sFuction.nStr, sItem.sFuction.nInt, sItem.sFuction.nDef);
 			}
 			fclose(pFile);
@@ -280,7 +281,7 @@ public:
 				char strTemp[1024];
 				fscanf(pFile, "%s\n", strTemp);
 				cout << strTemp << endl;
-				char  arrStrs[8][128];
+				char  arrStrs[10][128];
 				char* strTemps = strtok(strTemp, ",");
 				int idx = 0;
 				while (strTemps != NULL)
@@ -312,205 +313,232 @@ public:
 	}
 };
 
-
-void main()
+class GameManager
 {
-	//공격? 주인공이 게임에서 상대를 쓰러뜨리려고하는 행위
-	Player cPlayer("Player",100000);
-	Player cMonster("Monster");
-	ItemManager cItemManager;
-
-	//cItemManager.Init(); //아이템데이터를 초기화한다.
-	//cItemManager.SaveFile(); //초기화된 아이템 데이터를 파일에 저장한다.
-	cItemManager.LoadFile(); //파일에서 데이터을 읽어서 초기화한다.
-
-	Player cShop;
-
-	Item* pTempItem = cItemManager.GetItem(ItemManager::E_ITEM_LIST::WOOD_SOWRD);
-	cShop.SetIventory(pTempItem);
-	cShop.SetIventory(cItemManager.GetItem(ItemManager::E_ITEM_LIST::WOOD_ARMOR));
-	cShop.SetIventory(cItemManager.GetItem(ItemManager::E_ITEM_LIST::WOOD_RING));
-	cShop.SetIventory(cItemManager.GetItem(ItemManager::E_ITEM_LIST::BONE_SOWRD));
-	cShop.SetIventory(cItemManager.GetItem(ItemManager::E_ITEM_LIST::BONE_AMROR));
-	cShop.SetIventory(cItemManager.GetItem(ItemManager::E_ITEM_LIST::BONE_RING));
-	cShop.SetIventory(cItemManager.GetItem(ItemManager::E_ITEM_LIST::HP_POTION));
-	cShop.SetIventory(cItemManager.GetItem(ItemManager::E_ITEM_LIST::MP_POTION));
-	cShop.SetIventory(cItemManager.GetItem(ItemManager::E_ITEM_LIST::STONE));
-	cShop.SetIventory(cItemManager.GetItem(ItemManager::E_ITEM_LIST::BOOM));
-
-	//cMonster.SetIventory(Item(Item::ETC, "HPPotion", "Hp Recover", Status(100, 0, 0, 0, 0), 100));
-	Item* pHPPotion = cItemManager.GetItem(ItemManager::E_ITEM_LIST::HP_POTION);
-	cMonster.SetIventory(pHPPotion);
-
-	cPlayer.SetIventory(cItemManager.GetItem(ItemManager::E_ITEM_LIST::BONE_AMROR));
-
+public:
 	enum E_PLACE { EXIT = -1, CRATE, IVNETORY, SHOP, TOWN, FILED, BATTLE, GAME_OVER, THE_END, MAX };
-	E_PLACE ePlace = E_PLACE::CRATE;
-	const char* strStageName[] = { "CRATE", "INVENTORY","SHOP","TOWN", "FILED", "BATTLE", "GAME_OVER", "THE_END" };
-
 	enum E_MONSTER { SILME, SKELETON, BOSS, MON_MAX };
-	const char* strMonsterName[] = { "SILME", "SKELETON", "BOSS" };
-	int nInput;
 
-
-
-	while (ePlace != EXIT)
+	E_PLACE GetPlace()
 	{
-		switch (ePlace)
+		return ePlace;
+	}
+
+	void Init()
+	{
+		cItemManager.LoadFile(); //파일에서 데이터을 읽어서 초기화한다.
+
+		Item* pTempItem = cItemManager.GetItem(ItemManager::E_ITEM_LIST::WOOD_SOWRD);
+		cShop.SetIventory(pTempItem);
+		cShop.SetIventory(cItemManager.GetItem(ItemManager::E_ITEM_LIST::WOOD_ARMOR));
+		cShop.SetIventory(cItemManager.GetItem(ItemManager::E_ITEM_LIST::WOOD_RING));
+		cShop.SetIventory(cItemManager.GetItem(ItemManager::E_ITEM_LIST::BONE_SOWRD));
+		cShop.SetIventory(cItemManager.GetItem(ItemManager::E_ITEM_LIST::BONE_AMROR));
+		cShop.SetIventory(cItemManager.GetItem(ItemManager::E_ITEM_LIST::BONE_RING));
+		cShop.SetIventory(cItemManager.GetItem(ItemManager::E_ITEM_LIST::HP_POTION));
+		cShop.SetIventory(cItemManager.GetItem(ItemManager::E_ITEM_LIST::MP_POTION));
+		cShop.SetIventory(cItemManager.GetItem(ItemManager::E_ITEM_LIST::STONE));
+		cShop.SetIventory(cItemManager.GetItem(ItemManager::E_ITEM_LIST::BOOM));
+
+		cMonster.SetIventory(cItemManager.GetItem(ItemManager::E_ITEM_LIST::HP_POTION));
+
+		cPlayer.SetIventory(cItemManager.GetItem(ItemManager::E_ITEM_LIST::BONE_AMROR));
+	}
+	void EventCreate()
+	{
+		string name;
+		cout << "케릭터 이름을 입력하세요!:";
+		cin >> name;
+		cPlayer.Set(name, 100, 100, 20, 10, 10, 0);
+		ePlace = E_PLACE::TOWN;
+	}
+	void EventInventory()
+	{
+		cPlayer.Show();
+		int nSelect;
+		cout << "메뉴를 선택하세요!(1: 아이템사용. 2: 장비해제 etc: 마을):";
+		cin >> nSelect;
+		if (nSelect == 1)
 		{
-		case CRATE: //이름을 입력받는다.
+			cout << "사용할 아이템을 구하세요!:";
+			cin >> nSelect;
+			cout << "Select:" << nSelect << endl;
+			if (!cPlayer.UseItem(nSelect))
+				cout << "사용할수없습니다!" << endl;
+		}
+		else if (nSelect == 2)
 		{
-			string name;
-			cout << "케릭터 이름을 입력하세요!:";
-			cin >> name;
-			cPlayer.Set(name, 100, 100, 20, 10, 10, 0);
+			cout << "장비해제할 장비함에서 선택하세요!:";
+			cin >> nSelect;
+			cPlayer.ReleaseEqument(nSelect);
+		}
+		else
 			ePlace = E_PLACE::TOWN;
+	}
+	void EventShop()
+	{
+		cShop.Show();
+		int nInput;
+		cout << "상점입니다. 무엇을 하시겠습니까? 1: 구매, 2: 팔기, etc:마을";
+		cin >> nInput;
+		switch (nInput)
+		{
+		case 1:
+		{
+			cout << "구매할 아이템을 목록에서 선택하세요! -1:마을";
+			cin >> nInput;
+			if (nInput != -1)
+			{
+				if (cPlayer.Buy(cShop, nInput))
+					cout << "구매: " << nInput << endl;
+				else
+					cout << "구매 실패!" << endl;
+			}
 		}
 		break;
-		case IVNETORY://인벤토리의 목록을 보여주고, 사용할 아이템을 번호를 선택하면 사용 할 수있다. //장비를 선택하면 장비를 보여주고 해제할아이템 선택
+		case 2:
 		{
 			cPlayer.Show();
-			int nSelect;
-			cout << "메뉴를 선택하세요!(1: 아이템사용. 2: 장비해제 etc: 마을):";
-			cin >> nSelect;
-			if (nSelect == 1)
-			{
-				cout << "사용할 아이템을 구하세요!:";
-				cin >> nSelect;
-				cout << "Select:" << nSelect << endl;
-				if (!cPlayer.UseItem(nSelect))
-					cout << "사용할수없습니다!" << endl;
-			}
-			else if (nSelect == 2)
-			{
-				cout << "장비해제할 장비함에서 선택하세요!:";
-				cin >> nSelect;
-				cPlayer.ReleaseEqument(nSelect);
-			}
-			else
-				ePlace = E_PLACE::TOWN;
-		}
-		break;
-		case TOWN: //인벤토리와 상점이 이용이 가능하다.
-		{
-
-			cout << "마을 입니다." << endl;
-			cout << "어디로 가시겠습니까?" << endl;
-			for (int i = E_PLACE::CRATE + 1; i < E_PLACE::BATTLE; i++)
-				cout << i << ":" << strStageName[i] << ",";
+			cout << "판매할 아이템을 목록에서 선택하세요! -1:마을";
 			cin >> nInput;
-			ePlace = (E_PLACE)nInput;
+			if (nInput != -1)
+			{
+				cPlayer.Sell(nInput);
+				cout << "판매: " << nInput << endl;
+			}
 		}
 		break;
-		case E_PLACE::SHOP:
+		}
+		ePlace = E_PLACE::TOWN;
+	}
+	void EventTown()
+	{
+		int nInput;
+		const char* strStageName[] = { "CRATE", "INVENTORY","SHOP","TOWN", "FILED", "BATTLE", "GAME_OVER", "THE_END" };
+		cout << "마을 입니다." << endl;
+		cout << "어디로 가시겠습니까?" << endl;
+		for (int i = E_PLACE::CRATE + 1; i < E_PLACE::BATTLE; i++)
+			cout << i << ":" << strStageName[i] << ",";
+		cin >> nInput;
+		ePlace = (E_PLACE)nInput;
+	}
+	void EvnetFiled()
+	{
+		int nSelect;
+		const char* strMonsterName[] = { "SILME", "SKELETON", "BOSS" };
+		cout << "어디로 가시겠습니까?";
+		for (int i = 0; i < E_MONSTER::MON_MAX; i++)
+			cout << i << ":" << strMonsterName[i] << ",";
+		cin >> nSelect;
+		switch (nSelect)
 		{
-			cShop.Show();
-			int nInput;
-			cout << "상점입니다. 무엇을 하시겠습니까? 1: 구매, 2: 팔기, etc:마을";
-			cin >> nInput;
-			switch (nInput)
-			{
-			case 1:
-			{
-				cout << "구매할 아이템을 목록에서 선택하세요! -1:마을";
-				cin >> nInput;
-				if (nInput != -1)
-				{
-					if(cPlayer.Buy(cShop, nInput))
-						cout << "구매: "<< nInput << endl;
-					else
-						cout << "구매 실패!" << endl;
-				}
-			}
+		case E_MONSTER::SILME:
+			cMonster.Set("Slime", 100, 100, 20, 10, 10, 100);
 			break;
-			case 2:
-			{
-				cPlayer.Show();
-				cout << "판매할 아이템을 목록에서 선택하세요! -1:마을";
-				cin >> nInput;
-				if (nInput != -1)
-				{
-					cPlayer.Sell(nInput);
-					cout << "판매: " << nInput << endl;
-				}
-			}
+		case E_MONSTER::SKELETON:
+			cMonster.Set("Skeleton", 200, 200, 30, 10, 10, 100);
 			break;
-			}
-			ePlace = E_PLACE::TOWN;	
+		case E_MONSTER::BOSS:
+			cMonster.Set("Boss", 300, 100, 50, 10, 10, 100);
+			break;
 		}
-		break;
-		case FILED:
+		ePlace = E_PLACE::BATTLE;
+	}
+	void EventBattle()
+	{
+		const char* strMonsterName[] = { "SILME", "SKELETON", "BOSS" };
+		int nSelect;
+		cout << "어디로 가시겠습니까?";
+		for (int i = 0; i < E_MONSTER::MON_MAX; i++)
+			cout << i << ":" << strMonsterName[i] << ",";
+		cin >> nSelect;
+		switch (nSelect)
 		{
-			int nSelect;
-			cout << "어디로 가시겠습니까?";
-			for (int i = 0; i < E_MONSTER::MON_MAX; i++)
-				cout << i << ":" << strMonsterName[i] << ",";
-			cin >> nSelect;
-			switch (nSelect)
-			{
-			case E_MONSTER::SILME:
-				cMonster.Set("Slime", 100, 100, 20, 10, 10, 100);
-				break;
-			case E_MONSTER::SKELETON:
-				cMonster.Set("Skeleton", 200, 200, 30, 10, 10, 100);
-				break;
-			case E_MONSTER::BOSS:
-				cMonster.Set("Boss", 300, 100, 50, 10, 10, 100);
-				break;
-			}
-			ePlace = E_PLACE::BATTLE;
+		case E_MONSTER::SILME:
+			cMonster.Set("Slime", 100, 100, 20, 10, 10, 100);
+			break;
+		case E_MONSTER::SKELETON:
+			cMonster.Set("Skeleton", 200, 200, 30, 10, 10, 100);
+			break;
+		case E_MONSTER::BOSS:
+			cMonster.Set("Boss", 300, 100, 50, 10, 10, 100);
+			break;
 		}
-		break;
-		case BATTLE:
-		{
-			if (!cPlayer.Dead())
-			{
-				cPlayer.Attack(cMonster);
-				cMonster.Show();
-			}
-			else
-			{
-				cout << "Monster Win!" << endl;
-				cMonster.StillExp(cMonster);
-				if (cMonster.LvUp())
-					cout << "LvUp!!!" << endl;
-				cMonster.Show();
-				ePlace = GAME_OVER;
-			}
+		ePlace = E_PLACE::BATTLE;
+	}
+	
+	void EventGameOver()
+	{
+		cout << "GAME OVER" << endl;
+		ePlace = E_PLACE::EXIT;
+	}
+	void EventTheEnd()
+	{
+		cout << "The End" << endl;
+		ePlace = E_PLACE::TOWN;
+	}
 
-			if (!cMonster.Dead())
-			{
-				cMonster.Attack(cPlayer);
-				cPlayer.Show();
-			}
-			else
-			{
-				cout << "Player Win!" << endl;
-				cPlayer.StillExp(cMonster);
-				cPlayer.StillItem(cMonster);
-				if (cPlayer.LvUp())
-					cout << "LvUp!!!" << endl;
-				cPlayer.StillItem(cMonster);
-				cPlayer.Show();
-				ePlace = TOWN;
-			}
+	void Updata()
+	{
+		switch (GetPlace())
+		{
+		case GameManager::E_PLACE::CRATE: //이름을 입력받는다.
+			EventCreate();
+			break;
+		case GameManager::E_PLACE::IVNETORY://인벤토리의 목록을 보여주고, 사용할 아이템을 번호를 선택하면 사용 할 수있다. //장비를 선택하면 장비를 보여주고 해제할아이템 선택
+		{
+			EventInventory();
 		}
 		break;
-		case GAME_OVER:
+		case GameManager::E_PLACE::TOWN: //인벤토리와 상점이 이용이 가능하다.
 		{
-			cout << "GAME OVER" << endl;
-			ePlace = E_PLACE::EXIT;
+			EventInventory();
 		}
 		break;
-		case THE_END:
+		case GameManager::E_PLACE::SHOP:
 		{
-			cout << "THE END" << endl;
-			ePlace = E_PLACE::TOWN;
+			EventInventory();
+		}
+		break;
+		case GameManager::E_PLACE::FILED:
+		{
+			EvnetFiled();
+		}
+		break;
+		case GameManager::E_PLACE::BATTLE:
+		{
+			EventBattle();
+		}
+		break;
+		case GameManager::GAME_OVER:
+		{
+			EventBattle();
+		}
+		break;
+		case GameManager::THE_END:
+		{
+			EventTheEnd();
 		}
 		break;
 		}
 	}
+private:
+	Player cPlayer = Player("Player", 100000);
+	Player cMonster = Player("Monster");
+	Player cShop;
+	ItemManager cItemManager;
+
+	E_PLACE ePlace = E_PLACE::CRATE;
+};
 
 
+void main()
+{
+	GameManager cGameManager;
+	cGameManager.Init();
 
+	while (cGameManager.GetPlace() != GameManager::E_PLACE::EXIT)
+	{
+		cGameManager.Updata();
+	}
 }
