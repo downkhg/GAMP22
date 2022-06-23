@@ -237,10 +237,19 @@ public:
 		m_listItems[7] = Item(Item::E_ITEM_KIND::POTION, "마나포션", "MP회복", Status(0, 100), 100);
 		m_listItems[8] = Item(Item::E_ITEM_KIND::THROW, "짱돌", "단일 적 대미지", Status(0, 0, 50), 100);
 		m_listItems[9] = Item(Item::E_ITEM_KIND::THROW, "목검", "다수 적 대미지", Status(0, 0, 50), 100);
+		cout << "Init("<< m_listItems.size() <<")" << endl;
 	}
 
 	void SaveFile()
 	{
+		if (m_listItems.empty())
+		{
+			cout << "Save Data is Empty!!!" << endl;
+			return;
+		}
+		else 
+			cout << "Save Data" << endl;
+
 		FILE* pFile = fopen("itemdatabase.csv", "wt");
 		if (pFile)
 		{
@@ -294,7 +303,7 @@ public:
 			fclose(pFile);
 		}
 		else
-			cout << " Save Failed!" << endl;
+			cout << "Load Failed!" << endl;
 	}
 
 	Item* GetItem(int idx)
@@ -311,13 +320,14 @@ void main()
 	Player cMonster("Monster");
 	ItemManager cItemManager;
 
-	//cItemManager.Init();
-	//cItemManager.SaveFile();
-	cItemManager.LoadFile();
+	//cItemManager.Init(); //아이템데이터를 초기화한다.
+	//cItemManager.SaveFile(); //초기화된 아이템 데이터를 파일에 저장한다.
+	cItemManager.LoadFile(); //파일에서 데이터을 읽어서 초기화한다.
 
 	Player cShop;
 
-	cShop.SetIventory(cItemManager.GetItem(ItemManager::E_ITEM_LIST::WOOD_SOWRD));
+	Item* pTempItem = cItemManager.GetItem(ItemManager::E_ITEM_LIST::WOOD_SOWRD);
+	cShop.SetIventory(pTempItem);
 	cShop.SetIventory(cItemManager.GetItem(ItemManager::E_ITEM_LIST::WOOD_ARMOR));
 	cShop.SetIventory(cItemManager.GetItem(ItemManager::E_ITEM_LIST::WOOD_RING));
 	cShop.SetIventory(cItemManager.GetItem(ItemManager::E_ITEM_LIST::BONE_SOWRD));
