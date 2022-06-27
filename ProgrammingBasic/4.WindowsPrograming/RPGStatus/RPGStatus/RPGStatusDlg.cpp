@@ -171,13 +171,14 @@ void SyncBonusNState(int nBonus, int nState, CEdit& cEdit, CStatic& cStatc)
 
 void CRPGStatusDlg::OnDeltaposSpinMp(NMHDR* pNMHDR, LRESULT* pResult)
 {
+	Player* pPlayer = m_cGameManager.GetPlayer();
 	LPNMUPDOWN pNMUpDown = reinterpret_cast<LPNMUPDOWN>(pNMHDR);
-
+	//m_nMP = pPlayer->GetStatus().nMP;
 	if (pNMUpDown->iDelta < 0)
 	{
 		m_nBonus--;
-		m_nMP++;
-		SyncBonusNState(m_nBonus, m_nMP, m_editMP, m_staticBonus);
+		pPlayer->GetStatus().nMP++;
+		SyncBonusNState(m_nBonus, pPlayer->GetStatus().nMP, m_editMP, m_staticBonus);
 		/*CString strString;
 		strString.Format(_T("%d"), m_nMP);
 		m_editMP.SetWindowTextW(strString);
@@ -187,9 +188,9 @@ void CRPGStatusDlg::OnDeltaposSpinMp(NMHDR* pNMHDR, LRESULT* pResult)
 	}
 	else
 	{
-		m_nMP--;
+		pPlayer->GetStatus().nMP--;
 		m_nBonus++;
-		SyncBonusNState(m_nBonus, m_nMP, m_editMP, m_staticBonus);
+		SyncBonusNState(m_nBonus, pPlayer->GetStatus().nMP, m_editMP, m_staticBonus);
 		/*CString strString;
 		strString.Format(_T("%d"), m_nMP);
 		m_editMP.SetWindowTextW(strString);
@@ -197,6 +198,10 @@ void CRPGStatusDlg::OnDeltaposSpinMp(NMHDR* pNMHDR, LRESULT* pResult)
 		m_staticBonus.SetWindowTextW(strString);*/
 		TRACE("Click donw\n");
 	}
+	//pPlayer->GetStatus().nMP = m_nMP;
+	//pPlayer->GetStatus().nMP = m_n
+	//pPlayer->GetStatus().nMP = m_n;
+	///pPlayer->GetStatus().nMP = m_nMP;
 
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	*pResult = 0;

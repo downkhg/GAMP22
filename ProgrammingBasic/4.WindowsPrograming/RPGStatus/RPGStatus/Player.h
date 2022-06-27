@@ -44,4 +44,9 @@ public:
 	bool Dead();
 
 	void Show();
+
+	Status& GetStatus()
+	{
+		return m_sStatus;
+	}
 };

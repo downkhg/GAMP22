@@ -3,6 +3,7 @@
 //
 
 #pragma once
+#include "pch.h"
 
 
 // CRPGStatusDlg 대화 상자
@@ -42,7 +43,9 @@ public:
 	int m_nBonus = 20;
 
 	int m_nHP = 10;
-	int m_nMP = 10;
+	//int m_nMP = 10;
 	int m_STR = 10;
 	CEdit m_editMP;
+public:
+	GameManager m_cGameManager;
 };

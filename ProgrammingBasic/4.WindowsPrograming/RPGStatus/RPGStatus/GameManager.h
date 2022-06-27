@@ -29,7 +29,7 @@ private:
 
 	E_PLACE ePlace = E_PLACE::CRATE;
 public:
-	const Player* GetPlayer()
+	Player* GetPlayer()
 	{
 		return &cPlayer;
 	}
