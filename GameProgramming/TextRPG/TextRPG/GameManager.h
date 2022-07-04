@@ -1,5 +1,7 @@
 #pragma once
-#include "Player.h"
+
+class Player;
+//class ItemManager;
 
 class GameManager
 {
@@ -10,6 +12,7 @@ public:
 	E_PLACE GetPlace();
 
 	void Init();
+	void Release();
 
 	void EventCreate();
 	void EventInventory();
@@ -22,15 +25,15 @@ public:
 
 	void Updata();
 private:
-	Player cPlayer = Player("Player", 100000);
-	Player cMonster = Player("Monster");
-	Player cShop;
-	ItemManager cItemManager;
+	Player* m_pPlayer;
+	Player* m_pMonster;
+	Player* m_pShop;
+	class ItemManager* m_pItemManager;
 
 	E_PLACE ePlace = E_PLACE::CRATE;
 public:
 	const Player* GetPlayer()
 	{
-		return &cPlayer;
+		return m_pPlayer;
 	}
 };
